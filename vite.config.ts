@@ -10,9 +10,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
       manifest: {
-        name: 'Praise FM USA',
-        short_name: 'Praise FM',
-        description: '24/7 Worship & Gospel Radio',
+        name: 'Praise FM Nederland',
+        short_name: 'Praise FM NL',
+        description: '24/7 Christelijke Radio met Worship & Gospel Muziek',
         theme_color: '#ff6600',
         background_color: '#121212',
         display: 'standalone',
