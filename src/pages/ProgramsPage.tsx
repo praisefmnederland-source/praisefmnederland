@@ -5,29 +5,29 @@ const programs = [
   {
     slug: 'classic',
     title: 'Praise FM Classics',
-    presenter: 'Scott Turner',
-    time: '9:00 PM - 10:00 PM',
+    presenter: 'Martien Holterman',
+    time: '21:00 - 22:00',
     image:
-      'https://res.cloudinary.com/dtecypmsh/image/upload/v1778429831/scott-turner_wumkut.webp',
-    description: 'Christian classics from 2015 to 2022.'
+      'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874294/martien-holterman_ckagup.webp',
+    description: 'Christelijke klassiekers van 2015 tot 2022.'
   },
   {
     slug: 'future-artists',
     title: 'Future Artists',
-    presenter: 'Sarah Jordan',
-    time: '5:00 PM - 6:00 PM',
+    presenter: 'Lauke Adkin',
+    time: '17:00 - 18:00',
     image:
-      'https://res.cloudinary.com/dtecypmsh/image/upload/v1778429831/sarah-jordan_jnuzrb.webp',
-    description: 'Discover the future sound of Christian music.'
+      'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874296/lauke-adkin_tw08fj.webp',
+    description: 'Ontdek de toekomstige sound van christelijke muziek.'
   },
   {
     slug: 'praise-fm-rock',
     title: 'Praise FM Rock',
-    presenter: 'Jake Hunter',
-    time: '8:00 PM - 9:00 PM',
+    presenter: 'Lieke Aarnink',
+    time: '20:00 - 21:00',
     image:
-      'https://res.cloudinary.com/dtecypmsh/image/upload/v1782153980/jack-hunter_qagiwm.webp',
-    description: 'Rock and Faith.'
+      'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874296/lieke-aarnink_x9qyzx.webp',
+    description: 'Rock en Geloof.'
   }
 ]
 
@@ -36,22 +36,22 @@ export default function ProgramsPage() {
   return (
     <main className="min-h-screen bg-white dark:bg-[#121212] text-black dark:text-white">
       <SEO
-        title="Praise FM Programs | Global Christian Radio Shows"
-        description="Explore all programs on Praise FM. Christian radio shows, worship music, and gospel programming streaming worldwide."
+        title="Praise FM Nederland Programma's | Christelijke Radio Shows"
+        description="Ontdek alle programma's op Praise FM Nederland. Christelijke radioshows, worshipmuziek en gospel programmering die wereldwijd streamt."
       />
 
       <section className="max-w-7xl mx-auto px-4 md:px-6 py-10">
         <div className="mb-10">
           <p className="text-orange-500 font-black uppercase tracking-wide text-sm mb-2">
-            Praise FM USA
+            Praise FM Nederland
           </p>
 
           <h1 className="text-4xl md:text-6xl font-black mb-4">
-            Programs
+            Programma's
           </h1>
 
           <p className="max-w-3xl text-gray-600 dark:text-gray-400 text-lg">
-            Discover shows, hosts, music blocks and listen-again episodes from Praise FM.
+            Ontdek shows, presentatoren, muziek blokken en luister opnieuw naar afleveringen van Praise FM Nederland.
           </p>
         </div>
 
@@ -83,7 +83,7 @@ export default function ProgramsPage() {
                 </h2>
 
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                  with {program.presenter}
+                  met {program.presenter}
                 </p>
 
                 <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -91,7 +91,7 @@ export default function ProgramsPage() {
                 </p>
 
                 <div className="mt-5 inline-flex items-center text-sm font-black text-orange-500">
-                  View episodes →
+                  Bekijk afleveringen →
                 </div>
               </div>
             </Link>

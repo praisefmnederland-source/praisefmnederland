@@ -87,7 +87,7 @@ const EpisodePlayer = ({
       await audioRef.current.play()
       setIsPlaying(true)
     } catch (error) {
-      console.error('Error playing episode:', error)
+      console.error('Fout bij afspelen aflevering:', error)
     }
   }
 
@@ -177,7 +177,7 @@ const EpisodePlayer = ({
           </h3>
 
           <p className="text-gray-300 mb-3">
-            with <strong>{presenter}</strong>
+            met <strong>{presenter}</strong>
           </p>
 
           <p className="text-gray-400 mb-8 max-w-3xl">
@@ -213,7 +213,7 @@ const EpisodePlayer = ({
 
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-wide text-gray-400 mb-2">
-                  <span>{isPlaying ? 'Now Playing' : 'Ready to Play'}</span>
+                  <span>{isPlaying ? 'Nu Speelt' : 'Klaar om Af te Spelen'}</span>
                   <span>{formatTime(duration)}</span>
                 </div>
 
@@ -312,7 +312,7 @@ export default function ProgramEpisodesPage() {
 
         setEpisodes(episodeData)
       } catch (error) {
-        console.error('Error loading program episodes:', error)
+        console.error('Fout bij laden programma afleveringen:', error)
       } finally {
         setLoading(false)
       }
@@ -324,7 +324,7 @@ export default function ProgramEpisodesPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white p-8">
-        Loading program...
+        Programma laden...
       </div>
     )
   }
@@ -332,7 +332,7 @@ export default function ProgramEpisodesPage() {
   if (!program) {
     return (
       <div className="min-h-screen bg-black text-white p-8">
-        Program not found.
+        Programma niet gevonden.
       </div>
     )
   }
@@ -345,7 +345,7 @@ export default function ProgramEpisodesPage() {
           className="inline-flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-orange-500 transition mb-8"
         >
           <ArrowLeft size={18} />
-          Back to Programs
+          Terug naar Programma's
         </Link>
 
         <section className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-8 lg:gap-12 items-center">
@@ -363,7 +363,7 @@ export default function ProgramEpisodesPage() {
           <div>
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <span className="bg-orange-500 text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wide">
-                Program
+                Programma
               </span>
 
               <span className="inline-flex items-center gap-1.5 text-sm text-gray-400">
@@ -377,7 +377,7 @@ export default function ProgramEpisodesPage() {
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-300 mb-4">
-              with <strong>{program.presenter}</strong>
+              met <strong>{program.presenter}</strong>
             </p>
 
             <p className="text-gray-400 max-w-3xl leading-relaxed text-lg">
@@ -390,22 +390,22 @@ export default function ProgramEpisodesPage() {
           <div className="flex items-end justify-between gap-4 mb-8">
             <div>
               <h2 className="text-3xl md:text-5xl font-black">
-                Episodes
+                Afleveringen
               </h2>
 
               <p className="text-gray-400 mt-2">
-                Listen again to the latest episodes.
+                Luister opnieuw naar de laatste afleveringen.
               </p>
             </div>
 
             <span className="text-sm text-gray-500">
-              {episodes.length} episode{episodes.length === 1 ? '' : 's'}
+              {episodes.length} aflevering{episodes.length === 1 ? '' : 'en'}
             </span>
           </div>
 
           {episodes.length === 0 ? (
             <div className="rounded-3xl bg-[#151515] p-8 text-gray-400">
-              No episodes available yet.
+              Nog geen afleveringen beschikbaar.
             </div>
           ) : (
             <div className="space-y-8">
