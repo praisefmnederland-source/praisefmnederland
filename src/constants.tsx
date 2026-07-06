@@ -17,7 +17,8 @@ const IMAGES = {
   EVA_DE_JONG: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874293/eva-de-jong_jbbrcd.webp',
   LIEKE_AARNINK: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874296/lieke-aarnink_x9qyzx.webp',
   MARTIEN_HOLTERMAN: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874294/martien-holterman_ckagup.webp',
-  WORSHIP: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782875288/WHITENL_xepgma.webp' // Usando o logo branco como placeholder para programas genéricos
+  KATRIEN_VAN_EIJK: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1783355141/katrien_van_eijk_pyharm.webp',
+  WORSHIP: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1783355570/worship_ycbutw.webp'
 }
 
 // Programação de segunda a sábado (dias 1-6)
@@ -119,7 +120,7 @@ const weekday: Program[] = [
     startTime: '22:00',
     endTime: '00:00',
     description: 'Katrien Van Eijk brengt het beste van de Chill.',
-    image: IMAGES.WORSHIP // Placeholder - sem imagem específica
+    image: IMAGES.KATRIEN_VAN_EIJK
   }
 ]
 
@@ -222,7 +223,7 @@ const sunday: Program[] = [
     startTime: '22:00',
     endTime: '00:00',
     description: 'Katrien Van Eijk brengt het beste van de Chill.',
-    image: IMAGES.WORSHIP // Placeholder - sem imagem específica
+    image: IMAGES.KATRIEN_VAN_EIJK
   }
 ]
 

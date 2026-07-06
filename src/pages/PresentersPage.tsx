@@ -65,7 +65,7 @@ const PRESENTERS_DATA = [
   {
     name: 'Katrien Van Eijk',
     image: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1783355141/katrien_van_eijk_pyharm.webp',
-    bio: 'Katrien sluit de dag af met Praise FM Chill en creëert de perfecte sfeer.',
+    bio: 'Katrien sluit de dag af met Praise FM Chill en creërt de perfecte sfeer.',
     programTitle: 'Praise FM Chill'
   }
 ];
