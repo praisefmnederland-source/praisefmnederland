@@ -16,8 +16,9 @@ interface Release {
   isHot?: boolean;
 }
 
+// Alterado para região da Holanda (nl)
 const ITUNES_RSS =
-  'https://itunes.apple.com/us/rss/topalbums/limit=24/genre=22/json';
+  'https://itunes.apple.com/nl/rss/topalbums/limit=24/genre=22/json';
 
 async function enrichWithPreview(item: Release): Promise<Release> {
   try {
@@ -45,8 +46,8 @@ function parseRSS(feed: any): Release[] {
   const entries: any[] = feed?.feed?.entry ?? [];
   return entries.map((e, i) => ({
     id: e.id?.attributes?.['im:id'] ?? String(i),
-    artist: e['im:artist']?.label ?? 'Unknown Artist',
-    title: e['im:name']?.label ?? 'Unknown Title',
+    artist: e['im:artist']?.label ?? 'Onbekende Artiest',
+    title: e['im:name']?.label ?? 'Onbekende Titel',
     image: e['im:image']?.[2]?.label?.replace('170x170', '600x600') ?? '',
     previewUrl: '',
     itunesUrl: e?.link?.attributes?.href ?? '#',
@@ -104,7 +105,7 @@ const ReleaseCard: React.FC<CardProps> = ({
         {isNew(release.releaseDate) && (
           <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 flex items-center space-x-1">
             <Zap className="w-3 h-3 fill-current" />
-            <span className="text-[9px] font-black uppercase tracking-widest">New</span>
+            <span className="text-[9px] font-black uppercase tracking-widest">Nieuw</span>
           </div>
         )}
 
@@ -225,7 +226,6 @@ const NewReleasesPage: React.FC = () => {
   const handleFavorite = (e: React.MouseEvent, _release: Release) => {
     e.stopPropagation();
 
-
     // Favoritos ainda não implementados no AuthContext atual.
   };
 
@@ -257,12 +257,12 @@ const NewReleasesPage: React.FC = () => {
           <div className="inline-flex items-center space-x-2 bg-[#ff6600] text-black px-4 py-1.5 mb-8">
             <Zap className="w-4 h-4 fill-current" />
             <span className="text-[10px] font-black uppercase tracking-[0.2em]">
-              #1 Gospel Right Now
+              #1 Gospel Nu
             </span>
           </div>
 
           <h1 className="text-7xl md:text-[9rem] font-medium uppercase tracking-tighter leading-[0.85] mb-8">
-            The New<br />Wave
+            De Nieuwe<br />Golf
           </h1>
 
           {main && (
@@ -295,10 +295,10 @@ const NewReleasesPage: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center justify-between mb-16 border-b-2 border-black dark:border-white pb-8">
           <div className="flex items-center space-x-4 mb-6 md:mb-0">
             <h3 className="text-4xl font-medium uppercase tracking-tighter dark:text-white">
-              Top Gospel Right Now
+              Top Gospel Nu
             </h3>
             <span className="text-gray-400 text-sm uppercase tracking-widest pt-1">
-              iTunes Charts · US
+              iTunes Charts · NL
             </span>
           </div>
 
@@ -308,7 +308,7 @@ const NewReleasesPage: React.FC = () => {
             className="flex items-center space-x-2 bg-transparent text-gray-400 px-4 py-2 text-[10px] font-black uppercase tracking-widest border border-gray-200 dark:border-white/10 hover:border-[#ff6600] hover:text-[#ff6600] transition-colors disabled:opacity-40"
           >
             <RefreshCw className={`w-3 h-3 ${loading ? 'animate-spin' : ''}`} />
-            <span>Refresh</span>
+            <span>Vernieuwen</span>
           </button>
         </div>
 
@@ -316,7 +316,7 @@ const NewReleasesPage: React.FC = () => {
           <div className="flex flex-col items-center justify-center py-40">
             <Loader2 className="w-12 h-12 text-[#ff6600] animate-spin mb-4" />
             <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-gray-400">
-              Loading from iTunes...
+              Laden van iTunes...
             </p>
           </div>
         )}
@@ -324,13 +324,13 @@ const NewReleasesPage: React.FC = () => {
         {error && !loading && (
           <div className="text-center py-40">
             <p className="text-gray-400 mb-4 text-sm uppercase tracking-widest">
-              Could not load releases.
+              Kon releases niet laden.
             </p>
             <button
               onClick={load}
               className="bg-[#ff6600] text-white px-6 py-2 text-[10px] font-black uppercase tracking-widest"
             >
-              Try Again
+              Probeer Opnieuw
             </button>
           </div>
         )}
@@ -354,23 +354,23 @@ const NewReleasesPage: React.FC = () => {
           <div className="mt-32 border-t border-gray-100 dark:border-white/10 pt-16 flex flex-col md:flex-row items-start gap-20">
             <div className="w-full md:w-1/3">
               <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-[#ff6600] mb-6">
-                About This Chart
+                Over Deze Chart
               </h4>
               <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed uppercase tracking-tight mb-4">
-                Real-time Gospel & Christian music chart pulled directly from iTunes US. Updated daily. No editorial bias — just what listeners are playing right now.
+                Realtime Gospel & Christelijke muziek chart direct van iTunes NL. Dagelijks bijgewerkt. Geen redactionele bias — alleen wat luisteraars nu afspelen.
               </p>
               <div className="flex items-center space-x-2 text-[9px] font-medium uppercase tracking-widest text-gray-400">
                 <RefreshCw className="w-3 h-3" />
-                <span>Powered by iTunes RSS · Updated daily</span>
+                <span>Aangedreven door iTunes RSS · Dagelijks bijgewerkt</span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 flex-grow">
               {[
-                { v: releases.length, l: 'Albums Tracked' },
-                { v: '100%', l: 'Faith Focused' },
-                { v: 'Daily', l: 'Update Cycle' },
-                { v: '24/7', l: 'Global Discovery' },
+                { v: releases.length, l: 'Albums Gevolgd' },
+                { v: '100%', l: 'Geloof Gericht' },
+                { v: 'Dagelijks', l: 'Update Cyclus' },
+                { v: '24/7', l: 'Wereldwijde Ontdekking' },
               ].map(({ v, l }) => (
                 <div key={l} className="space-y-2">
                   <p className="text-3xl font-medium uppercase tracking-tighter dark:text-white">{v}</p>
