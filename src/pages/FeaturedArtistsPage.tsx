@@ -14,7 +14,7 @@ const FEATURED_ARTISTS: Artist[] = [
   {
     id: 'art_1',
     name: 'Brandon Lake',
-    genre: 'Contemporary Worship',
+    genre: 'Hedendaagse Worship',
     image:
       'https://res.cloudinary.com/dtecypmsh/image/upload/v1769823362/BRANDON_LAKE_pirbp8.webp',
     hits: ['Gratitude', 'Trust In God', 'Praise'],
@@ -22,7 +22,7 @@ const FEATURED_ARTISTS: Artist[] = [
   {
     id: 'art_2',
     name: 'Tauren Wells',
-    genre: 'Christian Pop / R&B',
+    genre: 'Christelijke Pop / R&B',
     image:
       'https://res.cloudinary.com/dtecypmsh/image/upload/v1769823979/TAUREN_WELLS_elfhyd.webp',
     hits: ['Known', 'Joy In The Morning', 'Take It All Back'],
@@ -46,7 +46,7 @@ const FEATURED_ARTISTS: Artist[] = [
   {
     id: 'art_5',
     name: 'Lauren Daigle',
-    genre: 'Christian Pop',
+    genre: 'Christelijke Pop',
     image:
       'https://res.cloudinary.com/dtecypmsh/image/upload/v1769823362/LAUREN_DAIGLE_cjqazt.webp',
     hits: ['You Say', 'Rescue', 'Thank God I Do'],
@@ -54,7 +54,7 @@ const FEATURED_ARTISTS: Artist[] = [
   {
     id: 'art_6',
     name: 'Elevation Worship',
-    genre: 'Modern Worship',
+    genre: 'Moderne Worship',
     image:
       'https://res.cloudinary.com/dtecypmsh/image/upload/v1769823362/ELEVATION_WORSHIP_hyuqfg.webp',
     hits: ['LION', 'Trust In God', 'More Than Able'],
@@ -85,7 +85,7 @@ const FeaturedArtistsPage: React.FC = () => {
   const handleFollowArtist = (e: React.MouseEvent) => {
     e.stopPropagation()
 
-    console.log('Favorites not implemented yet')
+    console.log('Favorieten nog niet geïmplementeerd')
   }
 
   return (
@@ -98,27 +98,27 @@ const FeaturedArtistsPage: React.FC = () => {
             <Star className="w-5 h-5 fill-current" />
 
             <span className="text-[10px] font-medium uppercase tracking-[0.4em]">
-              The Pulse of Praise FM USA
+              De Pols van Praise FM Nederland
             </span>
           </div>
 
           <h1 className="text-5xl md:text-8xl font-medium uppercase tracking-tighter leading-[0.85] mb-8">
-            Featured
+            Uitgelichte
             <br />
-            Artists
+            Artiesten
           </h1>
 
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl font-normal uppercase tracking-tight leading-tight">
-            The sounds defining a generation of faith. Exclusive sessions and
-            deep dives into the artists behind the world's biggest worship
-            anthems.
+            De geluiden die een generatie van geloof definiëren. Exclusieve sessies en
+            diepgaande kijkjes bij de artiesten achter 's werelds grootste worship
+            hymnen.
           </p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="bbc-section-title text-2xl dark:text-white uppercase font-medium">
-          Current Rotation
+          Huidige Rotatie
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-100 dark:bg-white/5 border border-gray-100 dark:border-white/5 mt-8">
@@ -157,7 +157,7 @@ const FeaturedArtistsPage: React.FC = () => {
                   <div className="mt-6 h-0 group-hover:h-auto overflow-hidden transition-all duration-700 opacity-0 group-hover:opacity-100">
                     <p className="text-gray-400 text-[9px] font-medium uppercase tracking-widest mb-4 flex items-center">
                       <Music className="w-3 h-3 mr-2 text-[#ff6600]" />
-                      Top Tracks
+                      Top Nummers
                     </p>
 
                     <div className="flex flex-wrap gap-2">
@@ -209,13 +209,13 @@ const FeaturedArtistsPage: React.FC = () => {
 
             <div className="max-w-md">
               <h4 className="text-3xl font-medium uppercase tracking-tighter dark:text-white leading-none mb-4">
-                Artist Submissions
+                Artiest Inzendingen
               </h4>
 
               <p className="text-gray-500 text-sm font-normal uppercase tracking-tight leading-relaxed">
-                We champion the next generation. If you're creating music that
-                inspires, we want to hear your story and your sound for
-                potential airplay.
+                Wij ondersteunen de volgende generatie. Als u muziek maakt die
+                inspireert, willen we uw verhaal en uw geluid horen voor
+                potentiële airplay.
               </p>
             </div>
           </div>
@@ -224,7 +224,7 @@ const FeaturedArtistsPage: React.FC = () => {
             onClick={() => navigate('/feedback?type=music')}
             className="bg-[#ff6600] text-white px-10 py-6 text-[10px] font-medium uppercase tracking-[0.4em] hover:bg-black transition-all shadow-xl active:scale-95 whitespace-nowrap flex items-center space-x-3"
           >
-            <span>Upload Your Track</span>
+            <span>Upload Uw Nummer</span>
 
             <ArrowRight className="w-4 h-4" />
           </button>
