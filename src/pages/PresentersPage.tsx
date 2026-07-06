@@ -9,73 +9,64 @@ interface PresentersPageProps {
 
 const PRESENTERS_DATA = [
   {
-    name: 'Stancy Campbell',
-    image: 'https://res.cloudinary.com/dtecypmsh/image/upload/v1782150864/stancy-campbell_dlmteu.webp',
-    bio: 'The energetic voice behind the Morning Show.',
-    programTitle: 'Morning Show'
+    name: 'Fleur Jansen',
+    image: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874293/fleur-jansen_uhsh90.webp',
+    bio: 'De rustgevende stem van de nacht. Fleur leidt Nachtgenade met vredige muziek en een kalme aanwezigheid.',
+    programTitle: 'Nachtgenade'
   },
-
   {
-    name: 'Michael Ray',
-    image: 'https://res.cloudinary.com/dtecypmsh/image/upload/v1778429831/michael-ray_bs3c8x.webp',
-    bio: 'Michael Ray is your afternoon companion on Midday Grace, bringing worship, peace, and encouragement during the busiest part of the day.',
-    programTitle: 'Midday Grace'
+    name: 'Lieke van Dijk',
+    image: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874294/lieke-van-dijk_hftgmj.webp',
+    bio: 'De energieke stem achter de Ochtendshow. Lieke brengt muziek, bemoediging en inspiratie om je dag te beginnen.',
+    programTitle: 'Ochtendshow'
   },
-
   {
-    name: 'DJ Zion',
-    image: 'https://res.cloudinary.com/dtecypmsh/image/upload/v1782158974/dj-zion_m2frte.webp',
-    bio: 'DJ Zion brings energy, rhythm, and fresh hip hop to Praise FM Flow.',
+    name: 'Joris de Wit',
+    image: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874293/joris-de-wit_pnika0.webp',
+    bio: 'Op zondagen begeleidt Joris de luisteraars door een reflectieve en worship ervaring met Zondag met Christus.',
+    programTitle: 'Zondag met Christus'
+  },
+  {
+    name: 'Daan Bakker',
+    image: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874173/daan-bakker_utmjoc.webp',
+    bio: 'Daan Bakker is je middaggezel op Middaggenade, met worship, vrede en bemoediging tijdens het drukste deel van de dag.',
+    programTitle: 'Middaggenade'
+  },
+  {
+    name: 'DJ Malik',
+    image: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874293/dj-malik_zozlug.webp',
+    bio: 'DJ Malik brengt energie, ritme en verse hip hop naar Praise FM Flow.',
     programTitle: 'Praise FM Flow'
   },
-
   {
-    name: 'Sarah Jordan',
-    image: 'https://res.cloudinary.com/dtecypmsh/image/upload/v1778429831/sarah-jordan_jnuzrb.webp',
-    bio: 'Sarah hosts Future Artists, where she discovers and promotes independent talent from around the world.',
+    name: 'Lauke Adkin',
+    image: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874296/lauke-adkin_tw08fj.webp',
+    bio: 'Lauke host Future Artists, waar ze onafhankelijk talent van over de hele wereld ontdekt en promoot.',
     programTitle: 'Future Artists'
   },
-
   {
-    name: 'Rachel Harris',
-    image: 'https://res.cloudinary.com/dtecypmsh/image/upload/v1782158974/rachael-harris_pwfg0z.webp',
-    bio: 'Rachel brings the hits and the perfect drive-home vibe on Praise FM Carpool.',
-    programTitle: 'Praise FM Carpool'
+    name: 'Eva de Jong',
+    image: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874293/eva-de-jong_jbbrcd.webp',
+    bio: 'Eva brengt de hits en de perfecte sfeer voor de weg naar huis op Thuisreis.',
+    programTitle: 'Thuisreis'
   },
-
   {
-    name: 'Jake Hunter',
-    image: 'https://res.cloudinary.com/dtecypmsh/image/upload/v1782153980/jack-hunter_qagiwm.webp',
-    bio: 'Jake Hunter brings attitude and faith with Praise FM Rock.',
+    name: 'Lieke Aarnink',
+    image: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874296/lieke-aarnink_x9qyzx.webp',
+    bio: 'Lieke Aarnink brengt attitude en geloof met Praise FM Rock.',
     programTitle: 'Praise FM Rock'
   },
-
   {
-    name: 'Scott Turner',
-    image: 'https://res.cloudinary.com/dtecypmsh/image/upload/v1778429831/scott-turner_wumkut.webp',
-    bio: 'A historian of worship music, Scott hosts Praise FM Classics, taking listeners back to timeless songs that shaped generations.',
-    programTitle: 'Classics'
+    name: 'Martien Holterman',
+    image: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874294/martien-holterman_ckagup.webp',
+    bio: 'Een historicus van worshipmuziek. Martien host Praise FM Classics en neemt luisteraars mee terug naar tijdloze liederen die generaties hebben gevormd.',
+    programTitle: 'Praise FM Classics'
   },
-
   {
-    name: 'Ava Brooks',
-    image: 'https://res.cloudinary.com/dtecypmsh/image/upload/v1782158973/ava-brooks_oyzibl.webp',
-    bio: 'Ava closes the day with Praise FM Chill, creating the perfect atmosphere.',
+    name: 'Katrien Van Eijk',
+    image: 'https://res.cloudinary.com/trjf7ykr/image/upload/v1783355141/katrien_van_eijk_pyharm.webp',
+    bio: 'Katrien sluit de dag af met Praise FM Chill en creëert de perfecte sfeer.',
     programTitle: 'Praise FM Chill'
-  },
-
-  {
-    name: 'Daniel Brooks',
-    image: 'https://res.cloudinary.com/dtecypmsh/image/upload/v1778429830/daniel-brooks_yur5dq.webp',
-    bio: 'The voice of the night. Daniel leads Midnight Grace with peaceful music and a calm overnight presence.',
-    programTitle: 'Midnight Grace'
-  },
-
-  {
-    name: 'Matt Riley',
-    image: 'https://res.cloudinary.com/dtecypmsh/image/upload/v1782158974/matt-riley_bun9ef.webp',
-    bio: 'On Sundays, Matt Riley guiding listeners through a reflective and worship experience.',
-    programTitle: 'Sunday Morning'
   }
 ];
 
@@ -95,18 +86,18 @@ const PresentersPage: React.FC<PresentersPageProps> = ({ onNavigateToProgram }) 
           <div className="flex items-center space-x-3 text-[#ff6600] mb-6">
             <Users className="w-5 h-5" />
             <span className="text-[10px] font-medium uppercase tracking-[0.4em]">
-              The Voices of Praise FM USA
+              De Stemmen van Praise FM Nederland
             </span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-semibold uppercase tracking-tighter leading-none mb-8">
-            Our
+            Onze
             <br />
-            Presenters
+            Presentatoren
           </h1>
 
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl font-normal tracking-tight leading-relaxed">
-            Meet the voices behind the music, worship, inspiration, and special programming that shape the sound of Praise FM USA every day.
+            Ontmoet de stemmen achter de muziek, worship, inspiratie en speciale programmering die elke dag het geluid van Praise FM Nederland vormgeven.
           </p>
         </div>
       </div>
@@ -151,12 +142,12 @@ const PresentersPage: React.FC<PresentersPageProps> = ({ onNavigateToProgram }) 
                         onClick={() => onNavigateToProgram(program)}
                         className="w-full bg-[#ff6600] text-white py-4 px-6 text-[10px] font-medium uppercase tracking-[0.2em] flex items-center justify-center space-x-2 hover:bg-black dark:hover:bg-white dark:hover:text-black transition-colors"
                       >
-                        <span>View Program</span>
+                        <span>Bekijk Programma</span>
                         <ArrowRight className="w-4 h-4" />
                       </button>
                     ) : (
                       <div className="w-full border border-gray-200 dark:border-white/10 py-4 px-6 text-[10px] text-center text-gray-400 uppercase tracking-[0.2em]">
-                        Program page coming soon
+                        Programma pagina binnenkort beschikbaar
                       </div>
                     )}
                   </div>
@@ -168,11 +159,11 @@ const PresentersPage: React.FC<PresentersPageProps> = ({ onNavigateToProgram }) 
 
         <div className="mt-24 bg-gray-50 dark:bg-[#111] p-12 md:p-20 flex flex-col items-center text-center border border-gray-100 dark:border-white/5">
           <h4 className="text-4xl font-semibold uppercase tracking-tighter dark:text-white mb-6">
-            Want the full lineup?
+            Wilt u de volledige line-up?
           </h4>
 
           <p className="text-gray-500 max-w-xl text-sm mb-10 leading-relaxed">
-            Explore the complete broadcasting schedule and discover every show that makes Praise FM USA your home for worship, encouragement, and great music.
+            Ontdek het volledige uitzendschema en ontdek elke show die Praise FM Nederland uw thuis maakt voor worship, bemoediging en geweldige muziek.
           </p>
 
           <button
@@ -181,7 +172,7 @@ const PresentersPage: React.FC<PresentersPageProps> = ({ onNavigateToProgram }) 
             }}
             className="bg-black dark:bg-white text-white dark:text-black px-12 py-5 text-[10px] font-medium uppercase tracking-[0.3em] hover:bg-[#ff6600] dark:hover:bg-[#ff6600] hover:text-white transition-all shadow-xl active:scale-95"
           >
-            Full Schedule
+            Volledige Programmering
           </button>
         </div>
       </div>
