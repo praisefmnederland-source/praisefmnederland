@@ -23,30 +23,31 @@ cloudinary.config({
 
 const WATCH_FOLDER = 'E:/PRAISE FM RECORDS'
 
+// Atualizado com programas e apresentadores holandeses
 const PROGRAMS = [
   {
     slug: 'classic',
     title: 'Praise FM Classics',
-    presenter: 'Scott Turner',
+    presenter: 'Martien Holterman',
     folder: 'CLASSICS',
     image:
-      'https://res.cloudinary.com/dtecypmsh/image/upload/v1778429831/scott-turner_wumkut.webp',
+      'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874294/martien-holterman_ckagup.webp',
   },
   {
     slug: 'future-artists',
     title: 'Future Artists',
-    presenter: 'Sarah Jordan',
+    presenter: 'Lauke Adkin',
     folder: 'FUTURE ARTISTS',
     image:
-      'https://res.cloudinary.com/dtecypmsh/image/upload/v1782158974/sarah-jordan_tfnxpp.webp',
+      'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874296/lauke-adkin_tw08fj.webp',
   },
   {
     slug: 'praise-fm-rock',
     title: 'Praise FM Rock',
-    presenter: 'Jake Hunter',
+    presenter: 'Lieke Aarnink',
     folder: 'ROCK',
     image: 
-      'https://res.cloudinary.com/dtecypmsh/image/upload/v1782153980/jack-hunter_qagiwm.webp',
+      'https://res.cloudinary.com/trjf7ykr/image/upload/v1782874296/lieke-aarnink_x9qyzx.webp',
   },
 ]
 
@@ -91,28 +92,29 @@ async function processFile(filePath) {
   try {
     const fileName = path.basename(filePath)
 
-    console.log(`\nNovo episódio detectado: ${fileName}`)
+    // Traduzido para holandês
+    console.log(`\nNieuwe aflevering gedetecteerd: ${fileName}`)
 
     const program = findProgram(filePath)
 
     if (!program) {
-      console.log(`Programa não identificado: ${fileName}`)
+      console.log(`Programma niet geïdentificeerd: ${fileName}`)
       return
     }
 
-    console.log(`Programa identificado: ${program.title}`)
-    console.log('Aguardando arquivo terminar de gravar...')
+    console.log(`Programma geïdentificeerd: ${program.title}`)
+    console.log('Wachten tot bestand klaar is met opnemen...')
 
     await waitForFile(filePath)
 
-    console.log('Arquivo pronto. Lendo duração...')
+    console.log('Bestand klaar. Duur lezen...')
 
     const metadata = await mm.parseFile(filePath)
     const durationMinutes = Math.round((metadata.format.duration || 3600) / 60)
 
     const dateString = new Date().toISOString().split('T')[0]
 
-    console.log('Enviando para o Cloudinary...')
+    console.log('Verzenden naar Cloudinary...')
 
     const uploadResult = await cloudinary.uploader.upload(filePath, {
       resource_type: 'video',
@@ -121,10 +123,11 @@ async function processFile(filePath) {
       overwrite: true,
     })
 
+    // Descrição traduzida para holandês
     const episode = {
       title: program.title,
       presenter: program.presenter,
-      description: `Replay episode of ${program.title}.`,
+      description: `Herhaling van ${program.title}.`,
       audioUrl: uploadResult.secure_url,
       image: program.image,
       duration: `${durationMinutes} mins`,
@@ -139,13 +142,13 @@ async function processFile(filePath) {
       .doc(dateString)
       .set(episode, { merge: true })
 
-    console.log(`Episódio publicado no Firebase: ${program.slug}/${dateString}`)
+    console.log(`Aflevering gepubliceerd in Firebase: ${program.slug}/${dateString}`)
   } catch (error) {
-    console.error('Erro ao processar arquivo:', error)
+    console.error('Fout bij verwerken bestand:', error)
   }
 }
 
-console.log('Monitorando pasta:')
+console.log('Map monitoren:')
 console.log(WATCH_FOLDER)
 
 const watcher = chokidar.watch(WATCH_FOLDER, {
