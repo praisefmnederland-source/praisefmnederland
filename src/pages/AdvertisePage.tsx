@@ -2,44 +2,45 @@ import React from 'react';
 import { Phone, Clock, Radio, Star, Zap, ArrowRight } from 'lucide-react';
 
 const AdvertisePage: React.FC = () => {
+  // Mantido o número original - atualize se necessário
   const whatsappNumber = '+5521971099200';
   
   const plans = [
     {
-      title: 'Commercial Spot',
-      duration: '30 seconds',
-      price: '$5 USD',
-      description: 'Pre-recorded message inserted during programming breaks. Ideal for quick promotion.',
+      title: 'Commerciale Spot',
+      duration: '30 seconden',
+      price: '€5',
+      description: 'Vooraf opgenomen bericht ingevoegd tijdens programmapauzes. Ideaal voor snelle promotie.',
       icon: <Zap className="w-6 h-6" />,
       highlight: false,
-      message: "Hi! I'm interested in the 30s Commercial Spot on Praise FM."
+      message: "Hallo! Ik ben geïnteresseerd in de 30s Commerciale Spot op Praise FM Nederland."
     },
     {
-      title: 'Live Mention',
-      duration: 'During live shows',
-      price: '$8 USD',
-      description: 'The host mentions your brand live on air, with instant reach.',
+      title: 'Live Vermelding',
+      duration: 'Tijdens live shows',
+      price: '€8',
+      description: 'De presentator noemt uw merk live in de lucht, met direct bereik.',
       icon: <Star className="w-6 h-6" />,
       highlight: true,
-      message: 'Hi! I want to book a Live Mention on Praise FM.'
+      message: 'Hallo! Ik wil een Live Vermelding boeken op Praise FM Nederland.'
     },
     {
-      title: '1-Hour Show',
-      duration: '60 minutes',
-      price: '$30 USD',
-      description: 'Your own music or talk show for a full hour. Choose your preferred time slot.',
+      title: '1-Uur Show',
+      duration: '60 minuten',
+      price: '€30',
+      description: 'Uw eigen muziek- of talkshow voor een volledig uur. Kies uw gewenste tijdslot.',
       icon: <Radio className="w-6 h-6" />,
       highlight: false,
-      message: "Hi! I'm interested in the 1-Hour Show on Praise FM."
+      message: "Hallo! Ik ben geïnteresseerd in de 1-Uur Show op Praise FM Nederland."
     },
     {
-      title: 'Monthly Package',
-      duration: '4 shows/month',
-      price: '$100 USD',
-      description: 'Four one-hour shows throughout the month at a discounted rate.',
+      title: 'Maandelijks Pakket',
+      duration: '4 shows/maand',
+      price: '€100',
+      description: 'Vier shows van één uur gedurende de maand tegen een gereduceerd tarief.',
       icon: <Clock className="w-6 h-6" />,
       highlight: false,
-      message: 'Hi! I want to sign up for the Monthly Package on Praise FM.'
+      message: 'Hallo! Ik wil me aanmelden voor het Maandelijks Pakket op Praise FM Nederland.'
     }
   ];
 
@@ -54,17 +55,17 @@ const AdvertisePage: React.FC = () => {
       <section className="bg-gradient-to-r from-orange-500 to-orange-600 text-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-black mb-4 leading-tight">
-            Advertise on <span className="text-black">Praise FM</span>
+            Adverteer bij <span className="text-black">Praise FM Nederland</span>
           </h1>
           <p className="text-xl md:text-2xl font-medium mb-8 text-white/90">
-            Take your brand to thousands of listeners passionate about music and faith.
+            Breng uw merk naar duizenden luisteraars gepassioneerd over muziek en geloof.
           </p>
           <button
-            onClick={() => openWhatsApp('Hello! I want to advertise on Praise FM. Could you send me more information?')}
+            onClick={() => openWhatsApp('Hallo! Ik wil adverteren bij Praise FM Nederland. Kunt u mij meer informatie sturen?')}
             className="inline-flex items-center gap-2 bg-black text-white hover:bg-gray-900 px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-xl"
           >
             <Phone className="w-6 h-6" />
-            Chat on WhatsApp
+            Chat op WhatsApp
             <ArrowRight className="w-5 h-5" />
           </button>
         </div>
@@ -73,10 +74,10 @@ const AdvertisePage: React.FC = () => {
       {/* Plans */}
       <section className="max-w-6xl mx-auto px-4 py-20">
         <h2 className="text-3xl md:text-4xl font-black text-center mb-4">
-          Our <span className="text-orange-500">Plans</span>
+          Onze <span className="text-orange-500">Plannen</span>
         </h2>
         <p className="text-center text-gray-500 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
-          Choose the perfect format for your campaign. All prices are negotiable via WhatsApp.
+          Kies het perfecte formaat voor uw campagne. Alle prijzen zijn onderhandelbaar via WhatsApp.
         </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -91,7 +92,7 @@ const AdvertisePage: React.FC = () => {
             >
               {plan.highlight && (
                 <span className="absolute -top-3 right-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  Most Popular
+                  Meest Populair
                 </span>
               )}
 
@@ -106,8 +107,8 @@ const AdvertisePage: React.FC = () => {
 
               <div className="mb-4">
                 <span className="text-3xl font-black">{plan.price}</span>
-                {plan.title === 'Monthly Package' && (
-                  <span className="text-sm text-gray-500 block">Save $20</span>
+                {plan.title === 'Maandelijks Pakket' && (
+                  <span className="text-sm text-gray-500 block">Bespaar €20</span>
                 )}
               </div>
 
@@ -116,7 +117,7 @@ const AdvertisePage: React.FC = () => {
                 className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4" />
-                Book Now
+                Boek Nu
               </button>
             </div>
           ))}
@@ -127,7 +128,7 @@ const AdvertisePage: React.FC = () => {
       <section className="bg-gray-50 dark:bg-[#1a1a1a] py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-black mb-12">
-            Why advertise on <span className="text-orange-500">Praise FM</span>?
+            Waarom adverteren bij <span className="text-orange-500">Praise FM Nederland</span>?
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8 text-left">
@@ -135,9 +136,9 @@ const AdvertisePage: React.FC = () => {
               <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center text-orange-500 mb-4">
                 <Radio className="w-6 h-6" />
               </div>
-              <h3 className="font-bold text-lg mb-2">Guaranteed Reach</h3>
+              <h3 className="font-bold text-lg mb-2">Gegarandeerd Bereik</h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Thousands of listeners tuned in 24/7 across the globe.
+                Duizenden luisteraars afgestemd 24/7 in Nederland en daarbuiten.
               </p>
             </div>
 
@@ -145,9 +146,9 @@ const AdvertisePage: React.FC = () => {
               <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center text-orange-500 mb-4">
                 <Star className="w-6 h-6" />
               </div>
-              <h3 className="font-bold text-lg mb-2">Engaged Audience</h3>
+              <h3 className="font-bold text-lg mb-2">Betrokken Publiek</h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Loyal listeners who trust the station's recommendations.
+                Loyal luisteraars die de aanbevelingen van het station vertrouwen.
               </p>
             </div>
 
@@ -155,9 +156,9 @@ const AdvertisePage: React.FC = () => {
               <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center text-orange-500 mb-4">
                 <Zap className="w-6 h-6" />
               </div>
-              <h3 className="font-bold text-lg mb-2">Fast Results</h3>
+              <h3 className="font-bold text-lg mb-2">Snelle Resultaten</h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Flexible ad formats that fit your budget and goals.
+                Flexibele advertentieformaten die passen bij uw budget en doelen.
               </p>
             </div>
           </div>
@@ -168,20 +169,20 @@ const AdvertisePage: React.FC = () => {
       <section className="py-20 px-4 text-center">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            Ready to <span className="text-orange-500">grow</span> with us?
+            Klaar om te <span className="text-orange-500">groeien</span> met ons?
           </h2>
           <p className="text-gray-500 dark:text-gray-400 mb-8 text-lg">
-            Click the button below and speak directly with our sales team.
+            Klik op de onderstaande knop en spreek direct met ons verkoopteam.
           </p>
           <button
-            onClick={() => openWhatsApp('Hello! I want to advertise on Praise FM. Could you send me more information?')}
+            onClick={() => openWhatsApp('Hallo! Ik wil adverteren bij Praise FM Nederland. Kunt u mij meer informatie sturen?')}
             className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-10 py-5 rounded-full font-black text-lg transition-all hover:scale-105 shadow-xl"
           >
             <Phone className="w-6 h-6" />
             +55 21 97109-9200
           </button>
           <p className="mt-4 text-sm text-gray-400">
-            Or call the number above during business hours.
+            Of bel het bovenstaande nummer tijdens kantooruren.
           </p>
         </div>
       </section>

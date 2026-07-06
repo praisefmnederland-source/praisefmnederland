@@ -4,37 +4,37 @@ import { useNavigate } from 'react-router-dom';
 
 import { SCHEDULES } from '../constants';
 
-const getChicagoTime = () => {
+// Alterado para o fuso horário de Amsterdã
+const getAmsterdamTime = () => {
   const now = new Date();
 
-  const chicagoDate = new Date(
-    now.toLocaleString('en-US', { timeZone: 'America/Chicago' })
+  const amsterdamDate = new Date(
+    now.toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam' })
   );
 
   return {
-    hours: chicagoDate.getHours(),
-    minutes: chicagoDate.getMinutes(),
-    day: chicagoDate.getDay(),
-    totalMinutes: chicagoDate.getHours() * 60 + chicagoDate.getMinutes()
+    hours: amsterdamDate.getHours(),
+    minutes: amsterdamDate.getMinutes(),
+    day: amsterdamDate.getDay(),
+    totalMinutes: amsterdamDate.getHours() * 60 + amsterdamDate.getMinutes()
   };
 };
 
-const format12h = (time24: string) => {
+// Alterado para formato 24h (padrão holandês)
+const format24h = (time24: string) => {
   const [h, m] = time24.split(':').map(Number);
-  const period = h >= 12 ? 'PM' : 'AM';
-  const displayH = h % 12 || 12;
-  return `${displayH}:${m.toString().padStart(2, '0')} ${period}`;
+  return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
 };
 
 const AppHomePage: React.FC = () => {
   const navigate = useNavigate();
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(getChicagoTime());
+  const [currentTime, setCurrentTime] = useState(getAmsterdamTime());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(getChicagoTime());
+      setCurrentTime(getAmsterdamTime());
     }, 30000);
 
     return () => clearInterval(timer);
@@ -123,7 +123,7 @@ const AppHomePage: React.FC = () => {
                   </p>
 
                   <p className="text-[10px] text-gray-500 dark:text-gray-400">
-                    {format12h(program.startTime)} - {format12h(program.endTime)}
+                    {format24h(program.startTime)} - {format24h(program.endTime)}
                   </p>
                 </div>
               </div>
@@ -135,14 +135,15 @@ const AppHomePage: React.FC = () => {
       <section className="px-6 py-4">
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-1">
-            Praise FM United States
+            Praise FM Nederland
           </h1>
 
           {currentProgram && (
             <p className="text-gray-500 dark:text-gray-400 mb-4">
               {currentProgram.title}{' '}
               {currentProgram.host !== 'Praise FM' &&
-                `with ${currentProgram.host}`}
+                currentProgram.host !== 'Praise FM NL' &&
+                `met ${currentProgram.host}`}
             </p>
           )}
 
@@ -150,7 +151,7 @@ const AppHomePage: React.FC = () => {
             onClick={() => navigate('/schedule')}
             className="border-2 border-black dark:border-white text-black dark:text-white px-8 py-2 font-semibold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors flex items-center justify-center mx-auto space-x-2 rounded-sm"
           >
-            <span>Stations & schedules</span>
+            <span>Programmering & Schema's</span>
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
@@ -158,9 +159,9 @@ const AppHomePage: React.FC = () => {
 
       <section className="px-6 py-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold">Recently Played</h2>
+          <h2 className="text-2xl font-bold">Recent Gedraaid</h2>
           <button className="text-sm text-gray-600 dark:text-gray-400">
-            View all
+            Bekijk alles
           </button>
         </div>
 
@@ -174,11 +175,11 @@ const AppHomePage: React.FC = () => {
 
             <div className="flex-grow min-w-0">
               <h3 className="font-bold text-base truncate">
-                Morning Worship Mix
+                Ochtend Worship Mix
               </h3>
 
               <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
-                Contemporary Christian Music
+                Hedendaagse Christelijke Muziek
               </p>
 
               <div className="mt-2 flex items-center space-x-2">
@@ -190,7 +191,7 @@ const AppHomePage: React.FC = () => {
                 </div>
 
                 <span className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                  2h ago
+                  2 uur geleden
                 </span>
               </div>
             </div>
@@ -212,13 +213,14 @@ const AppHomePage: React.FC = () => {
 
             <div className="min-w-0">
               <p className="font-semibold text-sm truncate">
-                {currentProgram?.title || 'Praise FM USA'}
+                {currentProgram?.title || 'Praise FM Nederland'}
               </p>
 
               <p className="text-xs opacity-70 truncate">
                 {currentProgram?.host &&
-                currentProgram.host !== 'Praise FM'
-                  ? `with ${currentProgram.host}`
+                currentProgram.host !== 'Praise FM' &&
+                currentProgram.host !== 'Praise FM NL'
+                  ? `met ${currentProgram.host}`
                   : 'Live Streaming'}
               </p>
             </div>
@@ -252,7 +254,7 @@ const AppHomePage: React.FC = () => {
             <svg className="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
             </svg>
-            <span className="text-xs font-semibold">Music</span>
+            <span className="text-xs font-semibold">Muziek</span>
           </button>
 
           <button
@@ -262,7 +264,7 @@ const AppHomePage: React.FC = () => {
             <svg className="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
               <path d="M17 10H7v2h10v-2zm2-7h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
             </svg>
-            <span className="text-xs font-semibold">Schedule</span>
+            <span className="text-xs font-semibold">Programmering</span>
           </button>
 
           <button
@@ -272,14 +274,14 @@ const AppHomePage: React.FC = () => {
             <svg className="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
             </svg>
-            <span className="text-xs font-semibold">My Sounds</span>
+            <span className="text-xs font-semibold">Mijn Geluiden</span>
           </button>
 
           <button className="flex flex-col items-center py-2 text-gray-500 dark:text-gray-400">
             <svg className="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
               <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
             </svg>
-            <span className="text-xs font-semibold">Search</span>
+            <span className="text-xs font-semibold">Zoeken</span>
           </button>
         </div>
       </nav>
