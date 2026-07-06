@@ -4,15 +4,15 @@ import { SCHEDULES } from '../constants'
 import { Program } from '../types'
 import { useNavigate } from 'react-router-dom'
 
-const getChicagoInfo = () => {
+const getAmsterdamInfo = () => {
   const now = new Date()
-  const chicagoString = now.toLocaleString('en-US', {
-    timeZone: 'America/Chicago',
+  const amsterdamString = now.toLocaleString('en-US', {
+    timeZone: 'Europe/Amsterdam',
   })
-  const chicagoDate = new Date(chicagoString)
-  const h = chicagoDate.getHours()
-  const m = chicagoDate.getMinutes()
-  const day = chicagoDate.getDay()
+  const amsterdamDate = new Date(amsterdamString)
+  const h = amsterdamDate.getHours()
+  const m = amsterdamDate.getMinutes()
+  const day = amsterdamDate.getDay()
   return { day, totalMinutes: h * 60 + m }
 }
 
@@ -23,11 +23,9 @@ const parseTime = (time24: string) => {
   return { h, m }
 }
 
-const format12h = (time24: string) => {
+const formatTime = (time24: string) => {
   const { h, m } = parseTime(time24)
-  const period = h >= 12 ? 'PM' : 'AM'
-  const displayH = h % 12 || 12
-  return `${displayH}:${m.toString().padStart(2, '0')} ${period}`
+  return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`
 }
 
 interface HeroProps {
@@ -52,10 +50,10 @@ const Hero: React.FC<HeroProps> = ({
     return () => clearInterval(interval)
   }, [])
 
-  const chicago = useMemo(() => getChicagoInfo(), [tick])
+  const amsterdam = useMemo(() => getAmsterdamInfo(), [tick])
 
   const { currentProgram, upNextPrograms } = useMemo(() => {
-    const schedule = Array.isArray(SCHEDULES[chicago.day]) ? SCHEDULES[chicago.day] : SCHEDULES[1]
+    const schedule = Array.isArray(SCHEDULES[amsterdam.day]) ? SCHEDULES[amsterdam.day] : SCHEDULES[1]
 
     const currentIndex = schedule.findIndex((p) => {
       const startTime = parseTime(p.startTime)
@@ -66,7 +64,7 @@ const Hero: React.FC<HeroProps> = ({
 
       if (end === 0 || end <= start) end = 24 * 60
 
-      return chicago.totalMinutes >= start && chicago.totalMinutes < end
+      return amsterdam.totalMinutes >= start && amsterdam.totalMinutes < end
     })
 
     const current = currentIndex !== -1 ? schedule[currentIndex] : schedule[0]
@@ -79,7 +77,7 @@ const Hero: React.FC<HeroProps> = ({
       currentProgram: current || null,
       upNextPrograms: Array.isArray(next) ? next : [],
     }
-  }, [chicago])
+  }, [amsterdam])
 
   const progress = useMemo(() => {
     if (!currentProgram) return 0
@@ -92,13 +90,13 @@ const Hero: React.FC<HeroProps> = ({
 
     if (end === 0 || end <= start) end = 24 * 60
 
-    const elapsed = chicago.totalMinutes - start
+    const elapsed = amsterdam.totalMinutes - start
     const duration = end - start
 
     if (duration <= 0) return 0
 
     return Math.min(Math.max(elapsed / duration, 0), 1)
-  }, [currentProgram, chicago.totalMinutes])
+  }, [currentProgram, amsterdam.totalMinutes])
 
   if (!currentProgram) return null
 
@@ -162,7 +160,7 @@ const Hero: React.FC<HeroProps> = ({
           <div className="flex-grow pt-4 text-center md:text-left">
             <div className="text-[11px] font-normal text-gray-500 dark:text-gray-400 mb-1 flex items-center justify-center md:justify-start space-x-2">
               <span>
-                {format12h(currentProgram.startTime)} - {format12h(currentProgram.endTime)}
+                {formatTime(currentProgram.startTime)} - {formatTime(currentProgram.endTime)}
               </span>
             </div>
 
@@ -170,7 +168,7 @@ const Hero: React.FC<HeroProps> = ({
               className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight mb-1 hover:text-[#ff6600] transition-colors cursor-pointer inline-flex items-center"
               onClick={() => onNavigateToProgram(currentProgram)}
             >
-              {currentProgram.title} with {currentProgram.host}
+              {currentProgram.title} met {currentProgram.host}
               <ChevronRight className="w-6 h-6 ml-1 text-[#ff6600]" />
             </h2>
 
@@ -188,7 +186,7 @@ const Hero: React.FC<HeroProps> = ({
                 <Play className="fill-current w-5 h-5" />
               )}
               <span className="text-lg font-bold tracking-tight">
-                {isPlaying ? 'Pause' : 'Play'}
+                {isPlaying ? 'Pauze' : 'Afspelen'}
               </span>
             </button>
           </div>
@@ -215,10 +213,10 @@ const Hero: React.FC<HeroProps> = ({
                     <div className="flex flex-col">
                       <div className="text-[11px] font-normal mb-1">
                         <span className="text-[#ff6600] uppercase tracking-widest font-semibold mr-2">
-                          UP NEXT
+                          VOLGENDE
                         </span>
                         <span className="text-gray-400 font-normal">
-                          {format12h(prog.startTime)} - {format12h(prog.endTime)}
+                          {formatTime(prog.startTime)} - {formatTime(prog.endTime)}
                         </span>
                       </div>
 
@@ -247,16 +245,16 @@ const Hero: React.FC<HeroProps> = ({
 
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white uppercase tracking-tight leading-none mb-1">
-                    New Music Alert
+                    Nieuwe Muziek Melding
                   </h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400 font-normal uppercase tracking-widest">
-                    Fresh anthems dropping now
+                    Verse hits nu beschikbaar
                   </p>
                 </div>
               </div>
 
               <button className="flex items-center space-x-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-black dark:text-white group-hover:text-[#ff6600] transition-colors">
-                <span>Explore All</span>
+                <span>Ontdek Alles</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
               </button>
             </div>
@@ -271,7 +269,7 @@ const Hero: React.FC<HeroProps> = ({
               </p>
 
               <p className="text-[11px] text-gray-400 dark:text-gray-500 uppercase font-medium tracking-widest mb-4">
-                Produced by PRAISE FM Global.
+                Geproduceerd door PRAISE FM Global.
               </p>
             </>
           )}
@@ -282,7 +280,7 @@ const Hero: React.FC<HeroProps> = ({
                 onClick={() => onNavigateToProgram(currentProgram)}
                 className="flex items-center text-sm font-semibold text-black dark:text-white hover:text-[#ff6600] transition-colors w-fit group"
               >
-                Programme Website <ExternalLinkIcon className="w-4 h-4 ml-2 text-[#ff6600]" />
+                Programma Website <ExternalLinkIcon className="w-4 h-4 ml-2 text-[#ff6600]" />
               </button>
             )}
 
@@ -292,11 +290,11 @@ const Hero: React.FC<HeroProps> = ({
             >
               {showDetails ? (
                 <>
-                  Show less <ChevronUpIcon className="w-4 h-4 ml-1 text-[#ff6600]" />
+                  Toon minder <ChevronUpIcon className="w-4 h-4 ml-1 text-[#ff6600]" />
                 </>
               ) : (
                 <>
-                  Show more <ChevronDownIcon className="w-4 h-4 ml-1 text-[#ff6600]" />
+                  Toon meer <ChevronDownIcon className="w-4 h-4 ml-1 text-[#ff6600]" />
                 </>
               )}
             </button>

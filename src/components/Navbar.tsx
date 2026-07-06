@@ -30,12 +30,12 @@ const Navbar: React.FC<NavbarProps> = ({
 
   const navItems = [
     { id: 'home', label: 'Home', icon: Home, path: '/' },
-    { id: 'programs', label: 'Programs', icon: Headphones, path: '/programs' },
-    { id: 'music', label: 'Music', icon: Music, path: '/music' },
-    { id: 'schedule', label: 'Schedule', icon: Calendar, path: '/schedule' },
-    { id: 'events', label: 'Events', icon: Ticket, path: '/events' },
-    { id: 'devotional', label: 'Devotional', icon: Radio, path: '/devotional' },
-    { id: 'advertise', label: 'Advertise', icon: Megaphone, path: '/advertise' }
+    { id: 'programs', label: "Programma's", icon: Headphones, path: '/programs' },
+    { id: 'music', label: 'Muziek', icon: Music, path: '/music' },
+    { id: 'schedule', label: 'Schema', icon: Calendar, path: '/schedule' },
+    { id: 'events', label: 'Evenementen', icon: Ticket, path: '/events' },
+    { id: 'devotional', label: 'Overdenking', icon: Radio, path: '/devotional' },
+    { id: 'advertise', label: 'Adverteren', icon: Megaphone, path: '/advertise' }
   ]
 
   return (
@@ -47,11 +47,13 @@ const Navbar: React.FC<NavbarProps> = ({
             onClick={() => navigate('/')}
           >
             <img
-              src="https://res.cloudinary.com/dtecypmsh/image/upload/v1769820657/logo_hochsa.webp"
-              alt="Praise FM USA Logo"
-              className={`h-7 w-auto object-contain transition-all ${
-                theme === 'dark' ? 'brightness-0 invert' : ''
-              }`}
+              src={
+                theme === 'dark'
+                  ? 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782875288/WHITENL_xepgma.webp'
+                  : 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782875288/BLACKNL_wwzt2q.webp'
+              }
+              alt="Praise FM Nederland Logo"
+              className="h-7 w-auto object-contain transition-all"
             />
           </div>
 

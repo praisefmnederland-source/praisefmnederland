@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,18 +11,17 @@ const Footer: React.FC = () => {
           <div className="col-span-2">
             <div className="flex items-center mb-6 cursor-pointer" onClick={() => navigate('/')}>
               <img 
-                src="https://res.cloudinary.com/dtecypmsh/image/upload/v1769820657/logo_hochsa.webp" 
-                alt="Praise FM USA Logo" 
+                src="https://res.cloudinary.com/trjf7ykr/image/upload/v1782875288/WHITENL_xepgma.webp" 
+                alt="Praise FM Nederland Logo" 
                 className="h-10 w-auto object-contain"
-                style={{ filter: 'invert(1) hue-rotate(180deg)' }}
               />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed max-sm font-normal">
-              Your home for the world's best worship music, exclusive devotional content, and the next generation of faith-filled artists. Curated daily for your spirit.
+              Jouw thuisbasis voor de beste worshipmuziek ter wereld, exclusieve overdenkingen en de nieuwe generatie geloofsvolle artiesten. Dagelijks samengesteld voor jouw geest.
             </p>
           </div>
           <div>
-            <h4 className="font-medium uppercase text-[11px] tracking-widest mb-6 text-white/50">Music</h4>
+            <h4 className="font-medium uppercase text-[11px] tracking-widest mb-6 text-white/50">Muziek</h4>
             <ul className="space-y-4 text-sm font-normal text-gray-400">
               <li>
                 <button 
@@ -38,7 +36,7 @@ const Footer: React.FC = () => {
                   onClick={() => navigate('/new-releases')} 
                   className="hover:text-[#ff6600] transition-colors text-left"
                 >
-                  New Releases
+                  Nieuwe Releases
                 </button>
               </li>
               <li>
@@ -46,7 +44,7 @@ const Footer: React.FC = () => {
                   onClick={() => navigate('/artists')} 
                   className="hover:text-[#ff6600] transition-colors text-left"
                 >
-                  Featured Artists
+                  Uitgelichte Artiesten
                 </button>
               </li>
             </ul>
@@ -54,25 +52,25 @@ const Footer: React.FC = () => {
           <div>
              <h4 className="font-medium uppercase text-[11px] tracking-widest mb-6 text-white/50">Radio</h4>
             <ul className="space-y-4 text-sm font-normal text-gray-400">
-              <li><button onClick={() => navigate('/schedule')} className="hover:text-[#ff6600] transition-colors text-left">Full Schedule</button></li>
-              <li><button onClick={() => navigate('/presenters')} className="hover:text-[#ff6600] transition-colors text-left">Our Presenters</button></li>
-              <li><button onClick={() => navigate('/devotional')} className="hover:text-[#ff6600] transition-colors text-left">Daily Devotional</button></li>
+              <li><button onClick={() => navigate('/schedule')} className="hover:text-[#ff6600] transition-colors text-left">Volledig Schema</button></li>
+              <li><button onClick={() => navigate('/presenters')} className="hover:text-[#ff6600] transition-colors text-left">Onze Presentatoren</button></li>
+              <li><button onClick={() => navigate('/devotional')} className="hover:text-[#ff6600] transition-colors text-left">Dagelijkse Overdenking</button></li>
             </ul>
           </div>
           <div>
-             <h4 className="font-medium uppercase text-[11px] tracking-widest mb-6 text-white/50">Support</h4>
+             <h4 className="font-medium uppercase text-[11px] tracking-widest mb-6 text-white/50">Ondersteuning</h4>
             <ul className="space-y-4 text-sm font-normal text-gray-400">
-              <li><button onClick={() => navigate('/help')} className="hover:text-[#ff6600] transition-colors text-left">Help Center</button></li>
-              <li><button onClick={() => navigate('/feedback')} className="hover:text-[#ff6600] transition-colors text-left">Feedback & Support</button></li>
+              <li><button onClick={() => navigate('/help')} className="hover:text-[#ff6600] transition-colors text-left">Helpcentrum</button></li>
+              <li><button onClick={() => navigate('/feedback')} className="hover:text-[#ff6600] transition-colors text-left">Feedback & Ondersteuning</button></li>
               <li><a href="mailto:fmpraiseradio@gmail.com" className="hover:text-[#ff6600] transition-colors">Direct Contact</a></li>
             </ul>
           </div>
           <div>
-             <h4 className="font-medium uppercase text-[11px] tracking-widest mb-6 text-white/50">Follow Us</h4>
+             <h4 className="font-medium uppercase text-[11px] tracking-widest mb-6 text-white/50">Volg Ons</h4>
             <ul className="space-y-4 text-sm font-normal text-gray-400">
               <li>
                 <a 
-                  href="https://www.instagram.com/fmpraise.usa/" 
+                  href="https://www.instagram.com/fmpraise.nl/" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="hover:text-[#ff6600] transition-colors"
@@ -84,10 +82,10 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] font-normal text-gray-500 uppercase tracking-widest">
-          <p>© 2026 PRAISE FM USA. INSPIRED BY EXCELLENCE.</p>
+          <p>© 2026 PRAISE FM NEDERLAND. GEÏNSPIREERD DOOR EXCELLENTIE.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <button onClick={() => navigate('/privacy-policy')} className="hover:text-white transition-colors">Privacy Policy</button>
-            <button onClick={() => navigate('/terms')} className="hover:text-white transition-colors">Terms of Use</button>
+            <button onClick={() => navigate('/privacy-policy')} className="hover:text-white transition-colors">Privacybeleid</button>
+            <button onClick={() => navigate('/terms')} className="hover:text-white transition-colors">Gebruiksvoorwaarden</button>
             <button onClick={() => navigate('/cookies')} className="hover:text-white transition-colors">Cookies</button>
           </div>
         </div>
