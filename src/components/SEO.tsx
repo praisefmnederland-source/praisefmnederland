@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+// @ts-ignore: react typings may be unavailable in certain environments
+import React, { useEffect } from 'react'
 
 interface SEOProps {
   title: string
