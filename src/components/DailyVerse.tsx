@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Share2, Copy, BookOpen, Quote, Loader2, Check, AlertCircle } from 'lucide-react';
 
@@ -8,6 +7,7 @@ interface VerseData {
   translation_name: string;
 }
 
+// Lista de referências bíblicas (mantida em inglês para a API, mas pode ser ajustada se necessário)
 const BIBLE_REFERENCES = [
   "John 3:16", "Philippians 4:13", "Psalm 23:1", "Proverbs 3:5", "Isaiah 40:31",
   "Romans 8:28", "Joshua 1:9", "Matthew 28:19", "Galatians 5:22", "Jeremiah 29:11",
@@ -34,12 +34,14 @@ const DailyVerse: React.FC = () => {
         const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
         const refIndex = dayOfYear % BIBLE_REFERENCES.length;
         const reference = BIBLE_REFERENCES[refIndex];
+        // A API bible-api.com suporta várias traduções. 'kjv' é em inglês. 
+        // Se quiser em holandês, pode tentar '?translation=nbv' (Nieuwe Bijbelvertaling) ou similar, dependendo do suporte da API.
         const response = await fetch(`https://bible-api.com/${encodeURIComponent(reference)}?translation=kjv`);
         const data = await response.json();
         setVerse({ reference: data.reference, text: data.text.trim(), translation_name: data.translation_name });
       } catch (error) { 
         console.error("Error fetching verse:", error); 
-        setError("Could not load verse of the day.");
+        setError("Kon het vers van de dag niet laden."); // Traduzido
       }
       finally { setLoading(false); }
     };
@@ -48,16 +50,15 @@ const DailyVerse: React.FC = () => {
 
   const copyToClipboard = async () => {
     if (!verse) return;
-    const shareText = `"${verse.text}" - ${verse.reference} | Praise FM USA`;
+    // Alterado para Praise FM Nederland
+    const shareText = `"${verse.text}" - ${verse.reference} | Praise FM Nederland`;
     
     try {
-      // Usando a abordagem moderna e tratando permissões
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(shareText);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       } else {
-        // Fallback para navegadores antigos ou contextos não seguros
         const textArea = document.createElement("textarea");
         textArea.value = shareText;
         document.body.appendChild(textArea);
@@ -79,10 +80,9 @@ const DailyVerse: React.FC = () => {
   const handleShare = async () => {
     if (!verse) return;
     
-    // Garantindo que a URL seja absoluta e válida
     const shareUrl = window.location.origin + window.location.pathname + window.location.hash;
     const shareData = {
-      title: 'Praise FM USA - Daily Scripture',
+      title: 'Praise FM Nederland - Dagelijkse Bijbeltekst', // Traduzido
       text: `"${verse.text}" - ${verse.reference}`,
       url: shareUrl,
     };
@@ -96,7 +96,6 @@ const DailyVerse: React.FC = () => {
         copyToClipboard();
       }
     } catch (err) {
-      // AbortError é disparado se o usuário cancelar o compartilhamento, ignoramos.
       if ((err as Error).name !== 'AbortError') {
         console.error("Error sharing:", err);
         copyToClipboard();
@@ -107,7 +106,7 @@ const DailyVerse: React.FC = () => {
   if (loading) return (
     <div className="flex flex-col items-center justify-center py-20 text-gray-400">
       <Loader2 className="w-8 h-8 animate-spin mb-4 text-[#ff6600]" />
-      <p className="font-medium uppercase tracking-[0.2em] text-[10px]">Loading Verse...</p>
+      <p className="font-medium uppercase tracking-[0.2em] text-[10px]">Tekst laden...</p> {/* Traduzido */}
     </div>
   );
 
@@ -131,10 +130,10 @@ const DailyVerse: React.FC = () => {
           </div>
           <div className="relative z-10">
             <span className="bg-[#ff6600] text-white text-[9px] font-medium uppercase px-2.5 py-1 rounded-sm inline-block mb-6 tracking-widest">
-              VERSE OF THE DAY
+              VERSE VAN DE DAG {/* Traduzido */}
             </span>
             <h3 className="text-white text-3xl md:text-4xl font-medium uppercase tracking-tighter leading-tight">
-              Daily<br />Scripture
+              Dagelijkse<br />Bijbeltekst {/* Traduzido */}
             </h3>
           </div>
           <div className="relative z-10 mt-12 flex items-center space-x-3">
@@ -151,7 +150,7 @@ const DailyVerse: React.FC = () => {
               <p className="text-black dark:text-white bg-[#ff6600] text-xl font-medium uppercase tracking-tighter px-2 inline-block leading-none py-1">
                 {verse.reference}
               </p>
-              <p className="text-gray-400 text-[9px] font-medium uppercase tracking-widest mt-2">HOLY BIBLE</p>
+              <p className="text-gray-400 text-[9px] font-medium uppercase tracking-widest mt-2">HEILIGE BIBEL</p> {/* Traduzido */}
             </div>
             <div className="flex items-center space-x-3">
               <button 
@@ -160,7 +159,7 @@ const DailyVerse: React.FC = () => {
               >
                 {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
                 <span className="text-[10px] font-medium uppercase tracking-widest">
-                  {copied ? 'Copied' : 'Copy'}
+                  {copied ? 'Gekopieerd' : 'Kopiëren'} {/* Traduzido */}
                 </span>
               </button>
               <button 
@@ -169,7 +168,7 @@ const DailyVerse: React.FC = () => {
               >
                 {shared ? <Check className="w-4 h-4" /> : <Share2 className="w-4 h-4" />}
                 <span className="text-[10px] font-medium uppercase tracking-widest">
-                  {shared ? 'Shared' : 'Share Now'}
+                  {shared ? 'Gedeeld' : 'Nu delen'} {/* Traduzido */}
                 </span>
               </button>
             </div>

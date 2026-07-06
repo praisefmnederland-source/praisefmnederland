@@ -46,27 +46,35 @@ interface LivePlayerBarProps {
   audioRef?: React.RefObject<HTMLAudioElement | null>
 }
 
-const formatTimeToAmPm = (timeString: string): string => {
+// Alterado para formato 24h (padrão na Holanda)
+const formatTimeTo24h = (timeString: string): string => {
   try {
-    if (timeString.includes('AM') || timeString.includes('PM')) {
+    // Se já estiver no formato 24h, retorna como está
+    if (!timeString.includes('AM') && !timeString.includes('PM')) {
       return timeString
     }
 
-    const [hours, minutes] = timeString.split(':')
+    // Converte de 12h para 24h
+    const [time, period] = timeString.split(' ')
+    const [hours, minutes] = time.split(':')
     let hour = parseInt(hours, 10)
-    const period = hour >= 12 ? 'PM' : 'AM'
 
-    hour = hour % 12 || 12
+    if (period === 'PM' && hour !== 12) {
+      hour += 12
+    } else if (period === 'AM' && hour === 12) {
+      hour = 0
+    }
 
-    return `${hour}:${minutes || '00'} ${period}`
+    return `${hour.toString().padStart(2, '0')}:${minutes || '00'}`
   } catch {
     return timeString
   }
 }
 
-const getChicagoDayAndTotalMinutes = () => {
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Chicago',
+// Alterado para o fuso horário de Amsterdã
+const getAmsterdamDayAndTotalMinutes = () => {
+  const formatter = new Intl.DateTimeFormat('nl-NL', {
+    timeZone: 'Europe/Amsterdam',
     weekday: 'short',
     hour: '2-digit',
     minute: '2-digit',
@@ -75,18 +83,19 @@ const getChicagoDayAndTotalMinutes = () => {
 
   const parts = formatter.formatToParts(new Date())
 
-  const weekday = parts.find((p) => p.type === 'weekday')?.value || 'Mon'
+  const weekday = parts.find((p) => p.type === 'weekday')?.value || 'ma'
   const hour = Number(parts.find((p) => p.type === 'hour')?.value || 0)
   const minute = Number(parts.find((p) => p.type === 'minute')?.value || 0)
 
+  // Mapeamento dos dias da semana em holandês
   const dayMap: Record<string, number> = {
-    Sun: 0,
-    Mon: 1,
-    Tue: 2,
-    Wed: 3,
-    Thu: 4,
-    Fri: 5,
-    Sat: 6,
+    zo: 0, // zondag (domingo)
+    ma: 1, // maandag (segunda)
+    di: 2, // dinsdag (terça)
+    wo: 3, // woensdag (quarta)
+    do: 4, // donderdag (quinta)
+    vr: 5, // vrijdag (sexta)
+    za: 6, // zaterdag (sábado)
   }
 
   return {
@@ -98,7 +107,7 @@ const getChicagoDayAndTotalMinutes = () => {
 const getProgramProgress = (program?: Program): number => {
   if (!program) return 0
 
-  const { total } = getChicagoDayAndTotalMinutes()
+  const { total } = getAmsterdamDayAndTotalMinutes()
 
   const [sH, sM] = program.startTime.split(':').map(Number)
   const [eH, eM] = program.endTime.split(':').map(Number)
@@ -136,7 +145,8 @@ const LivePlayerBar: React.FC<LivePlayerBarProps> = ({
   const [showSchedule, setShowSchedule] = useState(false)
 
   const [volume, setVolume] = useState(() => {
-    return parseFloat(localStorage.getItem('praise-volume') || '0.8')
+    // Alterado para chave específica da Praise FM Nederland
+    return parseFloat(localStorage.getItem('praise-nl-volume') || '0.8')
   })
 
   const [isMuted, setIsMuted] = useState(false)
@@ -170,7 +180,7 @@ const LivePlayerBar: React.FC<LivePlayerBarProps> = ({
       setIsMuted(true)
     }
 
-    localStorage.setItem('praise-volume', val.toString())
+    localStorage.setItem('praise-nl-volume', val.toString())
   }
 
   const toggleMute = () => {
@@ -216,8 +226,9 @@ const LivePlayerBar: React.FC<LivePlayerBarProps> = ({
         }`}
       >
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-white/10">
+          {/* Traduzido "Schedule" para "Programmering" */}
           <h2 className="text-lg font-semibold text-black dark:text-white">
-            Schedule
+            Programmering
           </h2>
 
           <button
@@ -251,8 +262,8 @@ const LivePlayerBar: React.FC<LivePlayerBarProps> = ({
                 </span>
 
                 <span className="text-xs text-gray-400 dark:text-gray-500 truncate">
-                  {formatTimeToAmPm(program.startTime)} -{' '}
-                  {formatTimeToAmPm(program.endTime)} • LIVE
+                  {formatTimeTo24h(program.startTime)} -{' '}
+                  {formatTimeTo24h(program.endTime)} • LIVE
                 </span>
               </div>
             </div>
@@ -284,8 +295,8 @@ const LivePlayerBar: React.FC<LivePlayerBarProps> = ({
                   </span>
 
                   <span className="text-xs text-gray-400 dark:text-gray-500 truncate">
-                    {formatTimeToAmPm(prog.startTime)} -{' '}
-                    {formatTimeToAmPm(prog.endTime)}
+                    {formatTimeTo24h(prog.startTime)} -{' '}
+                    {formatTimeTo24h(prog.endTime)}
                   </span>
                 </div>
 
@@ -364,8 +375,9 @@ const LivePlayerBar: React.FC<LivePlayerBarProps> = ({
           ) : (
             <div className="flex flex-col">
               <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-white/10">
+                {/* Traduzido "Now Playing" para "Nu Speelt" */}
                 <span className="text-sm font-semibold text-black dark:text-white">
-                  Now Playing
+                  Nu Speelt
                 </span>
 
                 <button
@@ -400,8 +412,8 @@ const LivePlayerBar: React.FC<LivePlayerBarProps> = ({
                   </span>
 
                   <span className="text-xs text-gray-400 dark:text-gray-500">
-                    {formatTimeToAmPm(program.startTime)} -{' '}
-                    {formatTimeToAmPm(program.endTime)} • LIVE
+                    {formatTimeTo24h(program.startTime)} -{' '}
+                    {formatTimeTo24h(program.endTime)} • LIVE
                   </span>
                 </div>
               </div>
@@ -416,11 +428,11 @@ const LivePlayerBar: React.FC<LivePlayerBarProps> = ({
 
                 <div className="flex justify-between mt-1">
                   <span className="text-[10px] text-gray-400">
-                    {formatTimeToAmPm(program.startTime)}
+                    {formatTimeTo24h(program.startTime)}
                   </span>
 
                   <span className="text-[10px] text-gray-400">
-                    {formatTimeToAmPm(program.endTime)}
+                    {formatTimeTo24h(program.endTime)}
                   </span>
                 </div>
               </div>

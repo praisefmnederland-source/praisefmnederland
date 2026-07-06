@@ -13,18 +13,18 @@ const DevotionalSection: React.FC = () => {
             <Mic2 className="w-5 h-5 text-white" />
           </div>
           <h2 className="text-3xl font-medium uppercase tracking-tighter dark:text-white">
-            Daily Devotional
+            Dagelijkse Overdenking
           </h2>
         </div>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-8 text-sm md:text-base leading-relaxed">
-          Start your day with spiritual encouragement. Listen to short, powerful devotionals 
-          that strengthen your faith and draw you closer to God.
+          Begin je dag met geestelijke bemoediging. Luister naar korte, krachtige overdenkingen 
+          die je geloof versterken en je dichter bij God brengen.
         </p>
         <button
           onClick={() => navigate('/devotional')}
           className="inline-flex items-center px-6 py-3 bg-[#ff6600] text-white font-bold uppercase text-sm tracking-wider rounded-full hover:bg-orange-600 transition-colors"
         >
-          Listen Now <ChevronRight className="w-4 h-4 ml-1" />
+          Luister Nu <ChevronRight className="w-4 h-4 ml-1" />
         </button>
       </div>
     </section>

@@ -4,9 +4,10 @@ import { SCHEDULES } from '../constants'
 import { Program } from '../types'
 import { useNavigate } from 'react-router-dom'
 
+// Alterado para o fuso horário de Amsterdã
 const getAmsterdamInfo = () => {
   const now = new Date()
-  const amsterdamString = now.toLocaleString('en-US', {
+  const amsterdamString = now.toLocaleString('nl-NL', {
     timeZone: 'Europe/Amsterdam',
   })
   const amsterdamDate = new Date(amsterdamString)
@@ -23,7 +24,8 @@ const parseTime = (time24: string) => {
   return { h, m }
 }
 
-const formatTime = (time24: string) => {
+// Alterado para formato de 24 horas (padrão na Holanda)
+const format24h = (time24: string) => {
   const { h, m } = parseTime(time24)
   return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`
 }
@@ -160,7 +162,7 @@ const Hero: React.FC<HeroProps> = ({
           <div className="flex-grow pt-4 text-center md:text-left">
             <div className="text-[11px] font-normal text-gray-500 dark:text-gray-400 mb-1 flex items-center justify-center md:justify-start space-x-2">
               <span>
-                {formatTime(currentProgram.startTime)} - {formatTime(currentProgram.endTime)}
+                {format24h(currentProgram.startTime)} - {format24h(currentProgram.endTime)}
               </span>
             </div>
 
@@ -168,6 +170,7 @@ const Hero: React.FC<HeroProps> = ({
               className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight mb-1 hover:text-[#ff6600] transition-colors cursor-pointer inline-flex items-center"
               onClick={() => onNavigateToProgram(currentProgram)}
             >
+              {/* Alterado "with" para "met" */}
               {currentProgram.title} met {currentProgram.host}
               <ChevronRight className="w-6 h-6 ml-1 text-[#ff6600]" />
             </h2>
@@ -212,11 +215,12 @@ const Hero: React.FC<HeroProps> = ({
 
                     <div className="flex flex-col">
                       <div className="text-[11px] font-normal mb-1">
+                        {/* Alterado "UP NEXT" para "STRAKS" */}
                         <span className="text-[#ff6600] uppercase tracking-widest font-semibold mr-2">
-                          VOLGENDE
+                          STRAKS
                         </span>
                         <span className="text-gray-400 font-normal">
-                          {formatTime(prog.startTime)} - {formatTime(prog.endTime)}
+                          {format24h(prog.startTime)} - {format24h(prog.endTime)}
                         </span>
                       </div>
 
@@ -245,10 +249,10 @@ const Hero: React.FC<HeroProps> = ({
 
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white uppercase tracking-tight leading-none mb-1">
-                    Nieuwe Muziek Melding
+                    Nieuwe Muziek
                   </h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400 font-normal uppercase tracking-widest">
-                    Verse hits nu beschikbaar
+                    De nieuwste worship hits
                   </p>
                 </div>
               </div>
@@ -269,7 +273,7 @@ const Hero: React.FC<HeroProps> = ({
               </p>
 
               <p className="text-[11px] text-gray-400 dark:text-gray-500 uppercase font-medium tracking-widest mb-4">
-                Geproduceerd door PRAISE FM Global.
+                Uitzending door PRAISE FM Nederland.
               </p>
             </>
           )}
@@ -280,7 +284,7 @@ const Hero: React.FC<HeroProps> = ({
                 onClick={() => onNavigateToProgram(currentProgram)}
                 className="flex items-center text-sm font-semibold text-black dark:text-white hover:text-[#ff6600] transition-colors w-fit group"
               >
-                Programma Website <ExternalLinkIcon className="w-4 h-4 ml-2 text-[#ff6600]" />
+                Programma Pagina <ExternalLinkIcon className="w-4 h-4 ml-2 text-[#ff6600]" />
               </button>
             )}
 
@@ -290,11 +294,11 @@ const Hero: React.FC<HeroProps> = ({
             >
               {showDetails ? (
                 <>
-                  Toon minder <ChevronUpIcon className="w-4 h-4 ml-1 text-[#ff6600]" />
+                  Minder tonen <ChevronUpIcon className="w-4 h-4 ml-1 text-[#ff6600]" />
                 </>
               ) : (
                 <>
-                  Toon meer <ChevronDownIcon className="w-4 h-4 ml-1 text-[#ff6600]" />
+                  Meer tonen <ChevronDownIcon className="w-4 h-4 ml-1 text-[#ff6600]" />
                 </>
               )}
             </button>

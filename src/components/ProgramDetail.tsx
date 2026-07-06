@@ -44,27 +44,28 @@ const getProgramImage = (program?: Program) => {
   )
 }
 
-const formatToAmPm = (time?: string) => {
+// Alterado para formato 24h (padrão holandês)
+const formatTo24h = (time?: string) => {
   if (!time) return ''
 
   const [hourRaw, minuteRaw] = time.split(':').map(Number)
-  const hour = hourRaw === 0 ? 12 : hourRaw > 12 ? hourRaw - 12 : hourRaw
+  const hour = String(hourRaw || 0).padStart(2, '0')
   const minute = String(minuteRaw || 0).padStart(2, '0')
-  const period = hourRaw >= 12 ? 'PM' : 'AM'
 
-  return `${hour}:${minute} ${period}`
+  return `${hour}:${minute}`
 }
 
-const formatRangeToAmPm = (start?: string, end?: string) => {
+const formatRangeTo24h = (start?: string, end?: string) => {
   if (!start || !end) return '24/7'
-  return `${formatToAmPm(start)} - ${formatToAmPm(end)}`
+  return `${formatTo24h(start)} - ${formatTo24h(end)}`
 }
 
-const getChicagoDayAndTotalMinutes = () => {
+// Alterado para o fuso horário de Amsterdã
+const getAmsterdamDayAndTotalMinutes = () => {
   const now = new Date()
 
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Chicago',
+  const formatter = new Intl.DateTimeFormat('nl-NL', {
+    timeZone: 'Europe/Amsterdam',
     weekday: 'short',
     hour: '2-digit',
     minute: '2-digit',
@@ -73,18 +74,19 @@ const getChicagoDayAndTotalMinutes = () => {
 
   const parts = formatter.formatToParts(now)
 
-  const weekday = parts.find((p) => p.type === 'weekday')?.value || 'Mon'
+  const weekday = parts.find((p) => p.type === 'weekday')?.value || 'ma'
   const hour = Number(parts.find((p) => p.type === 'hour')?.value || 0)
   const minute = Number(parts.find((p) => p.type === 'minute')?.value || 0)
 
+  // Mapeamento dos dias da semana em holandês
   const dayMap: Record<string, number> = {
-    Sun: 0,
-    Mon: 1,
-    Tue: 2,
-    Wed: 3,
-    Thu: 4,
-    Fri: 5,
-    Sat: 6
+    zo: 0, // zondag (domingo)
+    ma: 1, // maandag (segunda)
+    di: 2, // dinsdag (terça)
+    wo: 3, // woensdag (quarta)
+    do: 4, // donderdag (quinta)
+    vr: 5, // vrijdag (sexta)
+    za: 6  // zaterdag (sábado)
   }
 
   return {
@@ -94,7 +96,7 @@ const getChicagoDayAndTotalMinutes = () => {
 }
 
 const isProgramLive = (program: Program) => {
-  const { total } = getChicagoDayAndTotalMinutes()
+  const { total } = getAmsterdamDayAndTotalMinutes()
 
   const [sH, sM] = program.startTime.split(':').map(Number)
   const [eH, eM] = program.endTime.split(':').map(Number)
@@ -110,7 +112,7 @@ const isProgramLive = (program: Program) => {
 }
 
 const getNextProgram = (program: Program) => {
-  const { day } = getChicagoDayAndTotalMinutes()
+  const { day } = getAmsterdamDayAndTotalMinutes()
   const schedule = SCHEDULES[day] || SCHEDULES[1]
 
   const currentIndex = schedule.findIndex((p) => p.id === program.id)
@@ -126,9 +128,10 @@ const getNextProgram = (program: Program) => {
 }
 
 const getTrackTime = (track: LiveMetadata) => {
-  if (!track.playedAt) return 'Just played'
+  if (!track.playedAt) return 'Zojuist gedraaid'
 
-  return new Date(track.playedAt).toLocaleTimeString([], {
+  // Formato 24h para horário holandês
+  return new Date(track.playedAt).toLocaleTimeString('nl-NL', {
     hour: '2-digit',
     minute: '2-digit'
   })
@@ -189,7 +192,7 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
             className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-orange-500 transition mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back
+            Terug
           </button>
 
           <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-8 lg:gap-12 items-center">
@@ -208,7 +211,7 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
               <div className="absolute -bottom-5 left-6 bg-black text-white dark:bg-white dark:text-black px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3">
                 <Radio className="w-5 h-5 text-orange-500" />
                 <span className="text-xs font-black uppercase tracking-widest">
-                  {isLive ? 'Live Now' : 'On Demand'}
+                  {isLive ? 'Nu Live' : 'Op Aanvraag'}
                 </span>
               </div>
             </div>
@@ -216,12 +219,12 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
             <div className="pt-6 lg:pt-0">
               <div className="flex flex-wrap items-center gap-3 mb-5">
                 <span className="inline-flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest">
-                  {isLive ? 'Live' : 'Program'}
+                  {isLive ? 'Live' : 'Programma'}
                 </span>
 
                 <span className="inline-flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm font-semibold">
                   <Clock className="w-4 h-4" />
-                  {formatRangeToAmPm(program.startTime, program.endTime)}
+                  {formatRangeTo24h(program.startTime, program.endTime)}
                 </span>
               </div>
 
@@ -253,7 +256,7 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
                   className="inline-flex items-center justify-center gap-3 bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-2xl font-black text-lg transition active:scale-95 shadow-xl shadow-orange-500/20"
                 >
                   {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" fill="currentColor" />}
-                  {isPlaying ? 'Pause' : 'Listen Live'}
+                  {isPlaying ? 'Pauze' : 'Luister Live'}
                 </button>
 
                 <button
@@ -261,7 +264,7 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
                   className="inline-flex items-center justify-center gap-3 bg-gray-100 hover:bg-gray-200 dark:bg-[#1b1b1b] dark:hover:bg-[#252525] px-8 py-4 rounded-2xl font-black text-lg transition"
                 >
                   <Calendar className="w-5 h-5 text-orange-500" />
-                  Schedule
+                  Programmering
                 </button>
               </div>
             </div>
@@ -276,10 +279,10 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
               <div className="flex items-center justify-between gap-4 mb-6">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.25em] text-orange-500 mb-2">
-                    Praise FM
+                    Praise FM Nederland
                   </p>
                   <h2 className="text-3xl md:text-4xl font-black tracking-tight">
-                    About this show
+                    Over deze show
                   </h2>
                 </div>
               </div>
@@ -293,10 +296,10 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
               <div className="p-6 md:p-8 border-b border-black/5 dark:border-white/10 flex items-center justify-between">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.25em] text-orange-500 mb-2">
-                    Recently
+                    Recent
                   </p>
                   <h2 className="text-3xl md:text-4xl font-black tracking-tight">
-                    Music Played
+                    Gedraaide Muziek
                   </h2>
                 </div>
 
@@ -331,7 +334,7 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
                           <div className="flex items-center gap-2 mb-1">
                             {isCurrent && (
                               <span className="text-[10px] font-black uppercase tracking-widest text-orange-500">
-                                Now Playing
+                                Nu Speelt
                               </span>
                             )}
                           </div>
@@ -359,11 +362,11 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
                   </div>
 
                   <h3 className="text-xl font-black mb-2">
-                    No tracks yet
+                    Nog geen nummers
                   </h3>
 
                   <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
-                    Keep listening — tracks played on Praise FM will appear here.
+                    Blijf luisteren — nummers gedraaid op Praise FM verschijnen hier.
                   </p>
                 </div>
               )}
@@ -373,7 +376,7 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
           <aside className="space-y-6">
             <div className="bg-gray-100 dark:bg-[#171717] rounded-[2rem] p-6 border border-black/5 dark:border-white/5">
               <p className="text-xs font-black uppercase tracking-[0.25em] text-orange-500 mb-4">
-                Host
+                Presentator
               </p>
 
               <div className="flex items-center gap-4">
@@ -390,7 +393,7 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
                     {program.host || 'Praise FM'}
                   </h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Presenter
+                    Presentator
                   </p>
                 </div>
               </div>
@@ -398,7 +401,7 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
 
             <div className="bg-gray-100 dark:bg-[#171717] rounded-[2rem] p-6 border border-black/5 dark:border-white/5">
               <p className="text-xs font-black uppercase tracking-[0.25em] text-orange-500 mb-4">
-                Coming Up
+                Straks
               </p>
 
               {nextProgram ? (
@@ -413,11 +416,11 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
 
                   <div className="inline-flex items-center gap-2 bg-white dark:bg-[#222] px-4 py-2 rounded-full text-sm font-black">
                     <Clock className="w-4 h-4 text-orange-500" />
-                    {formatToAmPm(nextProgram.startTime)}
+                    {formatTo24h(nextProgram.startTime)}
                   </div>
                 </div>
               ) : (
-                <p className="text-gray-500">End of schedule</p>
+                <p className="text-gray-500">Einde van de programmering</p>
               )}
             </div>
 
@@ -427,11 +430,11 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
               </p>
 
               <h3 className="text-2xl font-black tracking-tight mb-3">
-                Praise FM USA
+                Praise FM Nederland
               </h3>
 
               <p className="text-white/85 text-sm leading-relaxed mb-5">
-                Worship, gospel, Christian hits and inspiring moments streaming 24/7 worldwide.
+                Worship, gospel, christelijke hits en inspirerende momenten, 24/7 wereldwijd gestreamd.
               </p>
 
               <button
@@ -439,7 +442,7 @@ const ProgramDetail: React.FC<ProgramDetailProps> = ({
                 className="w-full bg-white text-black hover:bg-black hover:text-white transition rounded-2xl px-5 py-4 font-black inline-flex items-center justify-center gap-2"
               >
                 {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" fill="currentColor" />}
-                {isPlaying ? 'Pause' : 'Listen Now'}
+                {isPlaying ? 'Pauze' : 'Luister Nu'}
               </button>
             </div>
           </aside>

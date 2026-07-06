@@ -8,15 +8,15 @@ interface ScheduleListProps {
   onBack?: () => void;
 }
 
-const getChicagoDate = (baseDate: Date = new Date()) => {
-  return new Date(baseDate.toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+// Alterado para o fuso horário de Amsterdã
+const getAmsterdamDate = (baseDate: Date = new Date()) => {
+  return new Date(baseDate.toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam' }));
 };
 
-const format12h = (time24: string) => {
+// Alterado para formato 24h (padrão holandês)
+const format24h = (time24: string) => {
   const [h, m] = time24.split(':').map(Number);
-  const period = h >= 12 ? 'PM' : 'AM';
-  const displayH = h % 12 || 12;
-  return `${displayH}:${m.toString().padStart(2, '0')} ${period}`;
+  return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
 };
 
 const ProgramProgressRing: React.FC<{ program: Program; isActive: boolean; nowMinutes: number }> = ({
@@ -92,20 +92,21 @@ const ProgramProgressRing: React.FC<{ program: Program; isActive: boolean; nowMi
   );
 };
 
-const dayMeta = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+// Traduzido para holandês
+const dayMeta = ['ZO', 'MA', 'DI', 'WO', 'DO', 'VR', 'ZA'];
 
 const ScheduleList: React.FC<ScheduleListProps> = ({ onNavigateToProgram, onBack }) => {
-  const [now, setNow] = useState(getChicagoDate());
-  const [selectedDay, setSelectedDay] = useState(getChicagoDate().getDay());
+  const [now, setNow] = useState(getAmsterdamDate());
+  const [selectedDay, setSelectedDay] = useState(getAmsterdamDate().getDay());
   const listContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const timer = setInterval(() => setNow(getChicagoDate()), 30000);
+    const timer = setInterval(() => setNow(getAmsterdamDate()), 30000);
     return () => clearInterval(timer);
   }, []);
 
   const weekDays = useMemo(() => {
-    const today = getChicagoDate();
+    const today = getAmsterdamDate();
     const currentDay = today.getDay();
 
     return Array.from({ length: 7 }, (_, i) => {
@@ -115,10 +116,11 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ onNavigateToProgram, onBack
       return {
         value: i,
         dayLabel: dayMeta[i],
+        // Alterado para formato holandês
         dateLabel: date
-          .toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
+          .toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' })
           .toUpperCase(),
-        fullLabel: date.toLocaleDateString('en-US', {
+        fullLabel: date.toLocaleDateString('nl-NL', {
           weekday: 'long',
           day: 'numeric',
           month: 'long'
@@ -198,17 +200,17 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ onNavigateToProgram, onBack
             onClick={onBack}
             className="flex items-center text-gray-400 hover:text-[#ff6600] transition-colors mb-6 text-xs font-normal uppercase tracking-widest"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" /> Back Home
+            <ArrowLeft className="w-4 h-4 mr-2" /> Terug naar Home
           </button>
         )}
 
         <div className="mb-10">
           <div className="flex flex-col md:flex-row md:items-baseline md:space-x-4 mb-6 border-b-4 border-black dark:border-white pb-6">
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white uppercase tracking-tight leading-none">
-              Schedule
+              Programmering
             </h1>
             <p className="text-gray-400 font-normal uppercase tracking-wide text-sm mt-4 md:mt-0">
-              {selectedDayInfo.isToday ? 'Today' : selectedDayInfo.dayLabel} • {selectedDayInfo.fullLabel}
+              {selectedDayInfo.isToday ? 'Vandaag' : selectedDayInfo.dayLabel} • {selectedDayInfo.fullLabel}
             </p>
           </div>
 
@@ -228,7 +230,7 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ onNavigateToProgram, onBack
                     }`}
                   >
                     <div className="text-[11px] font-bold tracking-wide">
-                      {day.isToday ? 'TODAY' : day.isSunday ? 'SUN ✝' : day.dayLabel}
+                      {day.isToday ? 'VANDAAG' : day.isSunday ? 'ZO ✝' : day.dayLabel}
                     </div>
                     <div className="text-[18px] font-bold leading-tight">
                       {day.dateLabel}
@@ -242,7 +244,7 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ onNavigateToProgram, onBack
 
         <div className="mb-12">
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px] uppercase tracking-[0.25em] text-gray-400">
-            <span className="text-gray-300 dark:text-gray-600">Browse</span>
+            <span className="text-gray-300 dark:text-gray-600">Bladeren</span>
 
             {(Object.keys(sections) as string[]).map((title) => (
               <button
@@ -255,11 +257,11 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ onNavigateToProgram, onBack
                 }
                 className="hover:text-[#ff6600] transition-colors"
               >
-                {title === 'EARLY' && 'Early Hours'}
-                {title === 'MORNING' && 'Morning'}
-                {title === 'AFTERNOON' && 'Afternoon'}
-                {title === 'EVENING' && 'Evening'}
-                {title === 'LATE' && 'Late Night'}
+                {title === 'EARLY' && 'Vroege Uren'}
+                {title === 'MORNING' && 'Ochtend'}
+                {title === 'AFTERNOON' && 'Middag'}
+                {title === 'EVENING' && 'Avond'}
+                {title === 'LATE' && 'Late Nacht'}
               </button>
             ))}
           </div>
@@ -269,7 +271,11 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ onNavigateToProgram, onBack
           items.length > 0 ? (
             <div key={title} id={title} className="mb-20 scroll-mt-32">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-8 uppercase tracking-tight">
-                {title}
+                {title === 'EARLY' && 'Vroege Uren'}
+                {title === 'MORNING' && 'Ochtend'}
+                {title === 'AFTERNOON' && 'Middag'}
+                {title === 'EVENING' && 'Avond'}
+                {title === 'LATE' && 'Late Nacht'}
               </h3>
 
               <div className="space-y-8">
@@ -295,12 +301,12 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ onNavigateToProgram, onBack
                               : 'text-gray-300 dark:text-gray-700 group-hover:text-black dark:group-hover:text-white'
                           }`}
                         >
-                          {format12h(prog.startTime)}
+                          {format24h(prog.startTime)}
                         </span>
 
                         {active && (
                           <div className="mt-3 inline-flex items-center justify-center bg-[#ff6600] text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider w-24">
-                            ON AIR
+                            NU LIVE
                           </div>
                         )}
                       </div>
@@ -319,7 +325,7 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ onNavigateToProgram, onBack
                         </h4>
 
                         <p className="text-gray-500 dark:text-gray-400 font-normal text-base mb-4 tracking-tight">
-                          with {prog.host}
+                          met {prog.host}
                         </p>
 
                         <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed font-normal max-w-2xl">
@@ -330,7 +336,7 @@ const ScheduleList: React.FC<ScheduleListProps> = ({ onNavigateToProgram, onBack
                           <div className="mt-6 flex items-center space-x-3">
                             <div className="h-1 w-10 bg-[#ff6600] animate-pulse"></div>
                             <span className="text-[10px] font-semibold text-[#ff6600] uppercase tracking-wider">
-                              Listening now live
+                              Nu live aan het luisteren
                             </span>
                           </div>
                         )}

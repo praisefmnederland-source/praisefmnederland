@@ -32,7 +32,7 @@ const Navbar: React.FC<NavbarProps> = ({
     { id: 'home', label: 'Home', icon: Home, path: '/' },
     { id: 'programs', label: "Programma's", icon: Headphones, path: '/programs' },
     { id: 'music', label: 'Muziek', icon: Music, path: '/music' },
-    { id: 'schedule', label: 'Schema', icon: Calendar, path: '/schedule' },
+    { id: 'schedule', label: 'Programmering', icon: Calendar, path: '/schedule' },
     { id: 'events', label: 'Evenementen', icon: Ticket, path: '/events' },
     { id: 'devotional', label: 'Overdenking', icon: Radio, path: '/devotional' },
     { id: 'advertise', label: 'Adverteren', icon: Megaphone, path: '/advertise' }
@@ -47,10 +47,10 @@ const Navbar: React.FC<NavbarProps> = ({
             onClick={() => navigate('/')}
           >
             <img
-              src={
-                theme === 'dark'
-                  ? 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782875288/WHITENL_xepgma.webp'
-                  : 'https://res.cloudinary.com/trjf7ykr/image/upload/v1782875288/BLACKNL_wwzt2q.webp'
+              // Troca dinâmica entre logo preto e branco baseado no tema
+              src={theme === 'dark' 
+                ? "https://res.cloudinary.com/trjf7ykr/image/upload/v1782875288/WHITENL_xepgma.webp"
+                : "https://res.cloudinary.com/trjf7ykr/image/upload/v1782875288/BLACKNL_wwzt2q.webp"
               }
               alt="Praise FM Nederland Logo"
               className="h-7 w-auto object-contain transition-all"

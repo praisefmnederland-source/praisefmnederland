@@ -15,6 +15,7 @@ interface RecentlyPlayedProps {
 const RecentlyPlayed: React.FC<RecentlyPlayedProps> = ({ tracks }) => {
   const [artworks, setArtworks] = useState<Record<string, string>>({})
 
+  // Mantidas keywords em inglês e adicionadas em holandês
   const blockedKeywords = [
     'commercial',
     'promo',
@@ -38,6 +39,24 @@ const RecentlyPlayed: React.FC<RecentlyPlayedProps> = ({ tracks }) => {
     'voices of praise',
     'night encounter',
     'daily devotional',
+    // Termos holandeses adicionados
+    'reclame',
+    'commercial',
+    'programma',
+    'show',
+    'radio',
+    'live',
+    'gesprek',
+    'nieuws',
+    'interview',
+    'mededeling',
+    'gebed',
+    'overdenking',
+    'nachtgenade',
+    'ochtendshow',
+    'middaggenade',
+    'thuisreis',
+    'zondagdienst',
   ]
 
   const isValidMusic = (track: Track) => {
@@ -123,18 +142,21 @@ const RecentlyPlayed: React.FC<RecentlyPlayedProps> = ({ tracks }) => {
     <section className="bg-white dark:bg-black py-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between mb-6">
+          {/* Traduzido */}
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Recent Tracks
+            Recente Nummers
           </h2>
 
+          {/* Traduzido */}
           <span className="text-sm text-gray-400">
-            Last {displayedTracks.length} songs
+            Laatste {displayedTracks.length} nummers
           </span>
         </div>
 
         {displayedTracks.length === 0 ? (
+          /* Traduzido */
           <p className="text-gray-500 dark:text-gray-400">
-            Waiting for music...
+            Wachten op muziek...
           </p>
         ) : (
           <div className="flex flex-col rounded-2xl overflow-hidden border border-gray-100 dark:border-white/5 bg-gray-50 dark:bg-[#0f0f0f]">
@@ -177,8 +199,9 @@ const RecentlyPlayed: React.FC<RecentlyPlayedProps> = ({ tracks }) => {
                   </div>
 
                   <div className="hidden md:flex items-center">
+                    {/* Traduzido */}
                     <span className="text-[11px] font-bold uppercase tracking-wider text-orange-500">
-                      Played
+                      Gedraaid
                     </span>
                   </div>
                 </div>

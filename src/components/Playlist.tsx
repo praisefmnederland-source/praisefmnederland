@@ -35,11 +35,12 @@ const MASTER_ARTISTS = [
   'Crowder',
 ]
 
+// Datas ajustadas para formato holandês
 const ARCHIVE_DATA = [
-  { date: 'Oct 24', artists: ['Brandon Lake', 'Phil Wickham', 'CeCe Winans'] },
-  { date: 'Oct 23', artists: ['Elevation Worship', 'Tauren Wells', 'Lauren Daigle'] },
-  { date: 'Oct 22', artists: ['Chris Tomlin', 'Forrest Frank', 'Tasha Cobbs'] },
-  { date: 'Oct 21', artists: ['Maverick City', 'TobyMac', 'Anne Wilson'] },
+  { date: '24 okt', artists: ['Brandon Lake', 'Phil Wickham', 'CeCe Winans'] },
+  { date: '23 okt', artists: ['Elevation Worship', 'Tauren Wells', 'Lauren Daigle'] },
+  { date: '22 okt', artists: ['Chris Tomlin', 'Forrest Frank', 'Tasha Cobbs'] },
+  { date: '21 okt', artists: ['Maverick City', 'TobyMac', 'Anne Wilson'] },
 ]
 
 type Track = {
@@ -168,7 +169,8 @@ const Playlist: React.FC = () => {
 
         setTracks(results)
       } catch {
-        console.debug('Erro ao carregar playlist Praise FM - Rede instável')
+        // Traduzido para holandês
+        console.debug('Fout bij het laden van Praise FM playlist - Netwerk instabiel')
       } finally {
         setLoading(false)
       }
@@ -204,7 +206,8 @@ const Playlist: React.FC = () => {
             <div className="p-6 border-b border-gray-100 dark:border-white/10 flex justify-between items-center bg-[#ff6600] text-white">
               <div className="flex items-center space-x-3">
                 <Calendar className="w-5 h-5" />
-                <h2 className="text-xl font-black uppercase tracking-tighter">Archive Selection</h2>
+                {/* Traduzido */}
+                <h2 className="text-xl font-black uppercase tracking-tighter">Archief Selectie</h2>
               </div>
               <button
                 onClick={() => setShowArchive(false)}
@@ -223,8 +226,9 @@ const Playlist: React.FC = () => {
                   <span className="text-[10px] font-black text-[#ff6600] uppercase tracking-[0.2em] mb-2 block">
                     {item.date}
                   </span>
+                  {/* Traduzido */}
                   <h3 className="text-lg font-black dark:text-white uppercase tracking-tight mb-3">
-                    The A-List Artists
+                    De A-Lijst Artiesten
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {item.artists.map((artist, aIdx) => (
@@ -241,8 +245,9 @@ const Playlist: React.FC = () => {
             </div>
 
             <div className="p-6 border-t border-gray-100 dark:border-white/10 text-center">
+              {/* Traduzido */}
               <p className="text-xs text-gray-400 uppercase font-regular tracking-widest">
-                Showing last 4 daily editions
+                Toont de laatste 4 dagelijkse edities
               </p>
             </div>
           </div>
@@ -253,17 +258,19 @@ const Playlist: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center space-x-2 text-[#ff6600] mb-4">
             <Music className="w-4 h-4" />
+            {/* Traduzido */}
             <span className="text-[10px] font-medium uppercase tracking-[0.4em]">
-              Official Praise FM USA Selection
+              Officiële Praise FM Nederland Selectie
             </span>
           </div>
           <h1 className="text-5xl md:text-8xl font-medium uppercase tracking-tighter mb-6 dark:text-white leading-none">
             Playlist
           </h1>
+          {/* Traduzido */}
           <p className="text-xl text-gray-500 dark:text-gray-400 max-w-2xl font-normal leading-tight uppercase">
-            Curated daily. The definitive sound of{' '}
-            <span className="text-black dark:text-white font-medium">Praise FM USA</span>,
-            featuring the world's most impactful worship hits.
+            Dagelijks samengesteld. Het definitieve geluid van{' '}
+            <span className="text-black dark:text-white font-medium">Praise FM Nederland</span>,
+            met 's werelds meest impactvolle worship hits.
           </p>
         </div>
       </div>
@@ -272,8 +279,9 @@ const Playlist: React.FC = () => {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-40">
             <Loader2 className="w-12 h-12 text-[#ff6600] animate-spin mb-4" />
+            {/* Traduzido */}
             <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-gray-400">
-              Refreshing Daily Playlist...
+              Dagelijkse playlist vernieuwen...
             </p>
           </div>
         ) : (
@@ -281,11 +289,12 @@ const Playlist: React.FC = () => {
             {aList.length > 0 && (
               <section className="mb-24">
                 <div className="flex items-baseline space-x-4 mb-10 border-b-4 border-black dark:border-white pb-4">
+                  {/* Traduzido */}
                   <h2 className="text-4xl font-medium uppercase tracking-tighter dark:text-white">
-                    A List
+                    A Lijst
                   </h2>
                   <span className="text-[#ff6600] text-sm font-medium uppercase tracking-widest">
-                    Power Rotation
+                    Power Rotatie
                   </span>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -304,11 +313,12 @@ const Playlist: React.FC = () => {
             {bList.length > 0 && (
               <section className="mb-24">
                 <div className="flex items-baseline space-x-4 mb-10 border-b-4 border-black/20 dark:border-white/20 pb-4">
+                  {/* Traduzido */}
                   <h2 className="text-4xl font-medium uppercase tracking-tighter dark:text-white opacity-60">
-                    B List
+                    B Lijst
                   </h2>
                   <span className="text-gray-400 text-sm font-medium uppercase tracking-widest">
-                    On The Rise
+                    In Opkomst
                   </span>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -327,11 +337,12 @@ const Playlist: React.FC = () => {
             {cList.length > 0 && (
               <section className="mb-24">
                 <div className="flex items-baseline space-x-4 mb-10 border-b-4 border-black/10 dark:border-white/10 pb-4">
+                  {/* Traduzido */}
                   <h2 className="text-4xl font-medium uppercase tracking-tighter dark:text-white opacity-40">
-                    C List
+                    C Lijst
                   </h2>
                   <span className="text-gray-300 text-sm font-medium uppercase tracking-widest">
-                    New & Next
+                    Nieuw & Volgend
                   </span>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -356,13 +367,14 @@ const Playlist: React.FC = () => {
                 <Info className="w-8 h-8" />
               </div>
               <div>
+                {/* Traduzido */}
                 <h4 className="text-2xl font-medium uppercase tracking-tighter dark:text-white">
-                  Daily Rotation
+                  Dagelijkse Rotatie
                 </h4>
                 <p className="text-gray-500 dark:text-gray-400 text-sm max-w-lg mt-2 uppercase font-normal tracking-tight leading-relaxed">
-                  The <span className="text-[#ff6600] font-medium">Praise FM USA Playlist</span>{' '}
-                  is updated every 24 hours. We select the most impactful songs from around the
-                  world to inspire your faith journey daily.
+                  De <span className="text-[#ff6600] font-medium">Praise FM Nederland Playlist</span>{' '}
+                  wordt elke 24 uur bijgewerkt. We selecteren de meest impactvolle nummers van over de
+                  hele wereld om je geloofsreis dagelijks te inspireren.
                 </p>
               </div>
             </div>
@@ -371,7 +383,8 @@ const Playlist: React.FC = () => {
               onClick={() => setShowArchive(true)}
               className="bg-black dark:bg-white text-white dark:text-black px-10 py-5 text-[10px] font-medium uppercase tracking-[0.3em] flex items-center space-x-3 hover:bg-[#ff6600] dark:hover:bg-[#ff6600] hover:text-white transition-all shadow-lg active:scale-95"
             >
-              <span>View Past Daily Lists</span>
+              {/* Traduzido */}
+              <span>Bekijk eerdere dagelijkse lijsten</span>
               <ExternalLink className="w-4 h-4" />
             </button>
           </div>
