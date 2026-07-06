@@ -47,15 +47,15 @@ const FeedbackPage: React.FC = () => {
 
     try {
       if (!formData.name.trim()) {
-        throw new Error('Please enter your name or artist name.')
+        throw new Error('Vul uw naam of artiestennaam in.')
       }
 
       if (!formData.email.trim()) {
-        throw new Error('Please enter your contact email.')
+        throw new Error('Vul uw contact e-mail in.')
       }
 
       if (!formData.message.trim()) {
-        throw new Error('Please enter a message or track link before transmitting.')
+        throw new Error('Vul een bericht of tracklink in voordat u verzendt.')
       }
 
       const feedbackData = {
@@ -66,13 +66,13 @@ const FeedbackPage: React.FC = () => {
         created_at: new Date().toISOString(),
       }
 
-      console.log('Feedback submitted locally:', feedbackData)
+      console.log('Feedback lokaal verzonden:', feedbackData)
 
       setSubmitted(true)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (err: any) {
-      console.error('Submission Error:', err)
-      setError(err.message || 'An unexpected error occurred.')
+      console.error('Verzendfout:', err)
+      setError(err.message || 'Er is een onverwachte fout opgetreden.')
     } finally {
       setLoading(false)
     }
@@ -81,27 +81,27 @@ const FeedbackPage: React.FC = () => {
   const categories = [
     {
       id: 'general',
-      label: 'Program Feedback',
+      label: 'Programma Feedback',
       icon: Mic2,
-      desc: 'Comment on our shows and presenters',
+      desc: 'Commentaar op onze shows en presentatoren',
     },
     {
       id: 'music',
-      label: 'Artist Submission',
+      label: 'Artiest Inzending',
       icon: Music,
-      desc: 'Send your track for airplay consideration',
+      desc: 'Stuur uw nummer voor airplay overweging',
     },
     {
       id: 'technical',
-      label: 'Technical Issue',
+      label: 'Technisch Probleem',
       icon: Settings,
-      desc: 'Report bugs or streaming problems',
+      desc: 'Meld bugs of streaming problemen',
     },
     {
       id: 'shoutout',
-      label: 'Send a Shoutout',
+      label: 'Stuur een Groet',
       icon: MessageSquare,
-      desc: 'Message for someone special on air',
+      desc: 'Bericht voor iemand speciaal in de lucht',
     },
   ] as const
 
@@ -116,17 +116,17 @@ const FeedbackPage: React.FC = () => {
             className="flex items-center text-gray-400 hover:text-white mb-10 text-[10px] font-medium uppercase tracking-[0.4em] group"
           >
             <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-            Exit to Home
+            Terug naar Home
           </button>
 
           <h1 className="text-6xl md:text-8xl font-medium uppercase tracking-tighter leading-none mb-6">
-            {type === 'music' ? 'Artist Submission' : 'Your Voice'}
+            {type === 'music' ? 'Artiest Inzending' : 'Uw Stem'}
           </h1>
 
           <p className="text-xl text-gray-400 font-normal uppercase tracking-tight max-w-xl">
             {type === 'music'
-              ? 'Join the next generation of worship. Our team reviews every track sent through our system.'
-              : 'Help us shape the future of Praise FM USA. Your voice directly influences our sound.'}
+              ? 'Word deel van de volgende generatie worship. Ons team beoordeelt elk nummer dat via ons systeem wordt verzonden.'
+              : 'Help ons de toekomst van Praise FM Nederland vorm te geven. Uw stem beïnvloedt direct ons geluid.'}
           </p>
         </div>
       </div>
@@ -135,7 +135,7 @@ const FeedbackPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
           <div className="lg:col-span-4 space-y-4">
             <h3 className="text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 mb-8">
-              Select Subject
+              Selecteer Onderwerp
             </h3>
 
             {categories.map((cat) => (
@@ -174,13 +174,13 @@ const FeedbackPage: React.FC = () => {
                 <CheckCircle2 className="w-20 h-20 mb-8" />
 
                 <h2 className="text-5xl font-medium uppercase tracking-tighter leading-none mb-4">
-                  Transmission Successful
+                  Verzending Succesvol
                 </h2>
 
                 <p className="text-black/60 text-lg font-normal uppercase tracking-tight max-w-sm">
                   {type === 'music'
-                    ? 'Your submission has been received. If your sound fits our current rotation, we will be in touch.'
-                    : 'Your input has been received. Thank you for contributing to Praise FM USA.'}
+                    ? 'Uw inzending is ontvangen. Als uw geluid past bij onze huidige rotatie, nemen we contact met u op.'
+                    : 'Uw input is ontvangen. Bedankt voor uw bijdrage aan Praise FM Nederland.'}
                 </p>
 
                 <button
@@ -190,7 +190,7 @@ const FeedbackPage: React.FC = () => {
                   }}
                   className="mt-10 border-2 border-black px-10 py-4 text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-[#ff6600] transition-all"
                 >
-                  Send another message
+                  Stuur nog een bericht
                 </button>
               </div>
             ) : (
@@ -204,7 +204,7 @@ const FeedbackPage: React.FC = () => {
 
                     <div>
                       <span className="text-[10px] font-black uppercase tracking-widest">
-                        Transmission Error
+                        Verzendfout
                       </span>
 
                       <p className="text-xs font-medium mt-1">{error}</p>
@@ -215,7 +215,7 @@ const FeedbackPage: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">
-                      Full Name / Artist Name
+                      Volledige Naam / Artiestennaam
                     </label>
 
                     <input
@@ -227,13 +227,13 @@ const FeedbackPage: React.FC = () => {
                         setFormData({ ...formData, name: e.target.value })
                       }
                       className="w-full bg-white dark:bg-black border-2 border-gray-100 dark:border-white/10 p-5 outline-none focus:border-[#ff6600] transition-colors dark:text-white font-medium disabled:opacity-50"
-                      placeholder="e.g. Maverick City Music"
+                      placeholder="bijv. Maverick City Music"
                     />
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">
-                      Contact Email
+                      Contact E-mail
                     </label>
 
                     <input
@@ -245,7 +245,7 @@ const FeedbackPage: React.FC = () => {
                         setFormData({ ...formData, email: e.target.value })
                       }
                       className="w-full bg-white dark:bg-black border-2 border-gray-100 dark:border-white/10 p-5 outline-none focus:border-[#ff6600] transition-colors dark:text-white font-medium disabled:opacity-50"
-                      placeholder="management@artist.com"
+                      placeholder="management@artiest.nl"
                     />
                   </div>
                 </div>
@@ -253,8 +253,8 @@ const FeedbackPage: React.FC = () => {
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">
                     {type === 'music'
-                      ? 'Track Information / SoundCloud or Drive Link'
-                      : 'Your Message'}
+                      ? 'Track Informatie / SoundCloud of Drive Link'
+                      : 'Uw Bericht'}
                   </label>
 
                   <textarea
@@ -268,8 +268,8 @@ const FeedbackPage: React.FC = () => {
                     className="w-full bg-white dark:bg-black border-2 border-gray-100 dark:border-white/10 p-5 outline-none focus:border-[#ff6600] transition-colors dark:text-white font-medium resize-none disabled:opacity-50"
                     placeholder={
                       type === 'music'
-                        ? 'Please provide a private link to your track and a short bio...'
-                        : "Tell us what's on your mind..."
+                        ? 'Geef een privélink naar uw nummer en een korte bio...'
+                        : 'Vertel ons wat u bezighoudt...'
                     }
                   />
                 </div>
@@ -281,13 +281,13 @@ const FeedbackPage: React.FC = () => {
                 >
                   {loading ? (
                     <>
-                      <span>Transmitting...</span>
+                      <span>Verzenden...</span>
                       <Loader2 className="w-4 h-4 animate-spin" />
                     </>
                   ) : (
                     <>
                       <span>
-                        {type === 'music' ? 'Submit Track' : 'Transmit Feedback'}
+                        {type === 'music' ? 'Nummer Indienen' : 'Feedback Verzenden'}
                       </span>
                       <Send className="w-4 h-4" />
                     </>
