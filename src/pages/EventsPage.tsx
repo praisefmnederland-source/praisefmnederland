@@ -359,4 +359,16 @@ const EventsPage: React.FC = () => {
       {/* Submit */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-white/5 rounded-xl p-8 text-center">
-          <h3
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+            Mist u een gospel evenement?
+          </h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Laat het ons weten zodat we het kunnen bekijken en toevoegen aan onze evenementenagenda.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EventsPage;
