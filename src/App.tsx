@@ -41,7 +41,6 @@ import { SCHEDULES } from './constants'
 import { Program } from './types'
 
 const DEFAULT_COVER = '/logo.png'
-// Atualizado para o stream da Praise FM Nederland
 const STREAM_URL = 'https://stream.zeno.fm/snhrb7ngq97tv'
 const METADATA_URL = 'https://api.zeno.fm/mounts/metadata/subscribe/snhrb7ngq97tv'
 
@@ -68,14 +67,11 @@ interface LiveMetadata {
   isMusic?: boolean
 }
 
-// Alterado para formato 24h (padrão holandês)
 const formatTo24h = (time?: string) => {
   if (!time) return ''
-
   const [hourRaw, minuteRaw] = time.split(':').map(Number)
   const hour = String(hourRaw || 0).padStart(2, '0')
   const minute = String(minuteRaw || 0).padStart(2, '0')
-
   return `${hour}:${minute}`
 }
 
@@ -84,10 +80,8 @@ const formatRangeTo24h = (start?: string, end?: string) => {
   return `${formatTo24h(start)} - ${formatTo24h(end)}`
 }
 
-// Alterado para o fuso horário de Amsterdã
 const getAmsterdamDayAndTotalMinutes = () => {
   const now = new Date()
-
   const formatter = new Intl.DateTimeFormat('nl-NL', {
     timeZone: 'Europe/Amsterdam',
     weekday: 'short',
@@ -101,15 +95,14 @@ const getAmsterdamDayAndTotalMinutes = () => {
   const hour = Number(parts.find((p) => p.type === 'hour')?.value || 0)
   const minute = Number(parts.find((p) => p.type === 'minute')?.value || 0)
 
-  // Mapeamento dos dias da semana em holandês
   const dayMap: Record<string, number> = {
-    zo: 0, // zondag (domingo)
-    ma: 1, // maandag (segunda)
-    di: 2, // dinsdag (terça)
-    wo: 3, // woensdag (quarta)
-    do: 4, // donderdag (quinta)
-    vr: 5, // vrijdag (sexta)
-    za: 6  // zaterdag (sábado)
+    zo: 0,
+    ma: 1,
+    di: 2,
+    wo: 3,
+    do: 4,
+    vr: 5,
+    za: 6
   }
 
   return {
@@ -120,26 +113,19 @@ const getAmsterdamDayAndTotalMinutes = () => {
 
 const getProgramProgress = (program?: Program) => {
   if (!program) return 0
-
   const { total } = getAmsterdamDayAndTotalMinutes()
-
   const [sH, sM] = program.startTime.split(':').map(Number)
   const [eH, eM] = program.endTime.split(':').map(Number)
-
   const start = sH * 60 + sM
   let end = eH * 60 + eM
-
   if (end === 0 || end <= start) end = 24 * 60
-
   if (total <= start) return 0
   if (total >= end) return 100
-
   return Math.round(((total - start) / (end - start)) * 100)
 }
 
 const getProgramImage = (program?: Program) => {
   const p = program as any
-
   return (
     p?.image ||
     p?.cover ||
@@ -151,11 +137,9 @@ const getProgramImage = (program?: Program) => {
 
 const ScrollToTop = () => {
   const { pathname } = useLocation()
-
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
-
   return null
 }
 
@@ -177,11 +161,9 @@ const HomeBBC = ({
   trackHistory: LiveMetadata[]
 }) => {
   const navigate = useNavigate()
-
   const nextOne = queue?.[0]
   const nextTwo = queue?.[1]
   const nextThree = queue?.[2]
-
   const presenterImage = getProgramImage(currentProgram)
   const progress = getProgramProgress(currentProgram)
 
@@ -211,7 +193,6 @@ const HomeBBC = ({
                   className="text-gray-300 dark:text-gray-700"
                   opacity={0.3}
                 />
-
                 <circle
                   cx={center}
                   cy={center}
@@ -259,9 +240,7 @@ const HomeBBC = ({
               >
                 <h1 className="text-3xl md:text-4xl font-black leading-tight">
                   {currentProgram?.title || 'Praise FM Live'}
-                  <span className="text-orange-500 ml-2 group-hover:ml-3 transition-all">
-                    ›
-                  </span>
+                  <span className="text-orange-500 ml-2 group-hover:ml-3 transition-all">›</span>
                 </h1>
               </button>
 
@@ -305,11 +284,9 @@ const HomeBBC = ({
                       (program as Program).endTime
                     )}
                   </p>
-
                   <h3 className="text-sm font-bold leading-tight group-hover:text-orange-500 transition-colors truncate">
                     {(program as Program).title}
                   </h3>
-
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
                     {(program as Program).host}
                   </p>
@@ -324,9 +301,7 @@ const HomeBBC = ({
               className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-orange-500 transition-colors group"
             >
               <Megaphone className="w-3.5 h-3.5 group-hover:text-orange-500" />
-              <span className="font-medium uppercase tracking-wider">
-                Adverteer bij ons
-              </span>
+              <span className="font-medium uppercase tracking-wider">Adverteer bij ons</span>
             </button>
           </div>
 
@@ -338,6 +313,12 @@ const HomeBBC = ({
           </div>
         </div>
       </section>
+
+      <div className="bg-white dark:bg-black">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <WeatherBar />
+        </div>
+      </div>
 
       <RecentlyPlayed tracks={trackHistory} />
     </>
@@ -356,10 +337,8 @@ const AppContent: React.FC = () => {
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const eventSourceRef = useRef<EventSource | null>(null)
-
   const location = useLocation()
   const navigate = useNavigate()
-
   const { day, total } = getAmsterdamDayAndTotalMinutes()
 
   const { currentProgram, queue } = useMemo(() => {
@@ -368,18 +347,14 @@ const AppContent: React.FC = () => {
     const currentIndex = schedule.findIndex((p: Program) => {
       const [sH, sM] = p.startTime.split(':').map(Number)
       const [eH, eM] = p.endTime.split(':').map(Number)
-
       const start = sH * 60 + sM
       let end = eH * 60 + eM
-
       if (end === 0 || end <= start) end = 24 * 60
-
       return total >= start && total < end
     })
 
     const safeIndex = currentIndex === -1 ? 0 : currentIndex
     const currentProgram = schedule[safeIndex]
-
     const nextPrograms: Program[] = []
 
     for (let i = 1; i <= 4; i++) {
@@ -387,10 +362,7 @@ const AppContent: React.FC = () => {
       nextPrograms.push(schedule[nextIndex])
     }
 
-    return {
-      currentProgram,
-      queue: nextPrograms
-    }
+    return { currentProgram, queue: nextPrograms }
   }, [day, total])
 
   useEffect(() => {
@@ -400,7 +372,6 @@ const AppContent: React.FC = () => {
 
   useEffect(() => {
     const audio = new Audio(STREAM_URL)
-
     audio.crossOrigin = 'anonymous'
     audio.preload = 'none'
     audio.volume = parseFloat(localStorage.getItem('praise-nl-volume') || '0.8')
@@ -410,7 +381,6 @@ const AppContent: React.FC = () => {
 
     audio.addEventListener('play', handlePlay)
     audio.addEventListener('pause', handlePause)
-
     audioRef.current = audio
 
     return () => {
@@ -424,12 +394,10 @@ const AppContent: React.FC = () => {
 
   const togglePlayback = () => {
     if (!audioRef.current) return
-
     if (isPlaying) {
       audioRef.current.pause()
       return
     }
-
     audioRef.current.play().catch(() => setIsPlaying(false))
   }
 
@@ -439,35 +407,25 @@ const AppContent: React.FC = () => {
   }
 
   useEffect(() => {
-    const es = new EventSource(METADATA_URL, {
-      withCredentials: false
-    })
-
+    const es = new EventSource(METADATA_URL, { withCredentials: false })
     eventSourceRef.current = es
 
     es.onmessage = (e) => {
       try {
         const data = JSON.parse(e.data)
         const streamTitle = data.streamTitle || ''
-
         if (!streamTitle.includes(' - ')) return
 
         const [artistRaw, ...rest] = streamTitle.split(' - ')
         const artist = artistRaw.trim()
         const title = rest.join(' - ').trim()
-
         if (!artist || !title) return
 
         const fullText = `${artist} ${title}`.toLowerCase()
-
-        if (BLOCKED_METADATA_KEYWORDS.some((k) => fullText.includes(k))) {
-          return
-        }
+        if (BLOCKED_METADATA_KEYWORDS.some((k) => fullText.includes(k))) return
 
         setLiveMetadata((prev) => {
-          if (prev && prev.title === title && prev.artist === artist) {
-            return prev
-          }
+          if (prev && prev.title === title && prev.artist === artist) return prev
 
           const meta: LiveMetadata = {
             artist,
@@ -477,7 +435,6 @@ const AppContent: React.FC = () => {
           }
 
           setTrackHistory((history) => [meta, ...history].slice(0, 10))
-
           return meta
         })
       } catch {}
@@ -489,7 +446,6 @@ const AppContent: React.FC = () => {
     }
   }, [])
 
-  // Atualizado para Praise FM Nederland
   const seo = {
     title: 'Praise FM Nederland - 24/7 Worship & Gospel Radio',
     description:
@@ -543,11 +499,8 @@ const AppContent: React.FC = () => {
           />
 
           <Route path="/programs" element={<ProgramsPage />} />
-
           <Route path="/program/:slug" element={<ProgramEpisodesPage />} />
-
           <Route path="/music" element={<Playlist />} />
-
           <Route
             path="/schedule"
             element={
@@ -557,17 +510,14 @@ const AppContent: React.FC = () => {
               />
             }
           />
-
           <Route path="/devotional" element={<DevotionalPage />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/new-releases" element={<NewReleasesPage />} />
           <Route path="/artists" element={<FeaturedArtistsPage />} />
-
           <Route
             path="/presenters"
             element={<PresentersPage onNavigateToProgram={openProgramPage} />}
           />
-
           <Route path="/live-recordings" element={<LiveRecordingsPage />} />
           <Route path="/listen-again" element={<ListenAgainPage />} />
           <Route path="/help" element={<HelpCenterPage />} />
@@ -576,7 +526,6 @@ const AppContent: React.FC = () => {
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="/terms" element={<TermsOfUsePage />} />
           <Route path="/cookies" element={<CookiesPolicyPage />} />
-
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
