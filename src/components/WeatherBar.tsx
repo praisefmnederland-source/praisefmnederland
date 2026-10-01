@@ -35,7 +35,6 @@ export default function WeatherBar() {
       Tornado: 'Tornado',
       Snow: 'Sneeuw'
     }
-
     return conditions[condition] || condition
   }
 
@@ -50,9 +49,7 @@ export default function WeatherBar() {
 
     fetch(url)
       .then((res) => {
-        if (!res.ok) {
-          throw new Error('Kan weersverwachting niet laden')
-        }
+        if (!res.ok) throw new Error('Kan weersverwachting niet laden')
         return res.json()
       })
       .then((data) => {
@@ -62,13 +59,11 @@ export default function WeatherBar() {
           const nextDayData = data.list[16] || data.list[2]
 
           const daysOfWeek = ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za']
-
           const localDateString = new Date().toLocaleString('en-US', {
             timeZone: 'Europe/Amsterdam'
           })
           const localDate = new Date(localDateString)
           const todayIndex = localDate.getDay()
-
           const formatDayName = (offset: number) =>
             daysOfWeek[(todayIndex + offset) % 7]
 
@@ -102,56 +97,54 @@ export default function WeatherBar() {
 
   return (
     <div className="py-6 border-b border-gray-300 dark:border-white/10">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="bg-gray-100 dark:bg-[#1A1A1A] p-4 transition-colors rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white dark:bg-[#121212] shadow-sm flex items-center justify-center text-orange-500 flex-shrink-0">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3 15a4 4 0 004 4h10a4 4 0 001.5-7.7A5 5 0 008.5 7.3 4.5 4.5 0 003 15z"
-                  />
-                </svg>
-              </div>
+      <div className="bg-gray-100 dark:bg-[#1A1A1A] p-4 transition-colors rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-white dark:bg-[#121212] shadow-sm flex items-center justify-center text-orange-500 flex-shrink-0">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 15a4 4 0 004 4h10a4 4 0 001.5-7.7A5 5 0 008.5 7.3 4.5 4.5 0 003 15z"
+                />
+              </svg>
+            </div>
 
-              <div>
-                <p className="text-[11px] font-black text-orange-500 uppercase tracking-wide">
-                  Amsterdam, NL
-                </p>
-                <h3 className="text-sm font-bold leading-tight text-gray-900 dark:text-white">
-                  Weersverwachting
-                </h3>
-              </div>
+            <div>
+              <p className="text-[11px] font-black text-orange-500 uppercase tracking-wide">
+                Amsterdam, NL
+              </p>
+              <h3 className="text-sm font-bold leading-tight text-gray-900 dark:text-white">
+                Weersverwachting
+              </h3>
             </div>
           </div>
+        </div>
 
-          <div className="grid grid-cols-3 gap-3 w-full md:w-auto">
-            {forecast.map((item, index) => (
-              <div
-                key={index}
-                className="bg-white/60 dark:bg-[#121212]/60 px-3 py-2 rounded-xl text-center flex flex-col items-center justify-center min-w-[85px]"
-              >
-                <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase">
-                  {item.day}
-                </span>
-                <span className="text-sm font-black text-gray-950 dark:text-white my-0.5">
-                  {item.temp}
-                </span>
-                <span className="text-[10px] text-gray-500 dark:text-gray-400 truncate max-w-full">
-                  {item.condition}
-                </span>
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-3 gap-3 w-full md:w-auto">
+          {forecast.map((item, index) => (
+            <div
+              key={index}
+              className="bg-white/60 dark:bg-[#121212]/60 px-3 py-2 rounded-xl text-center flex flex-col items-center justify-center min-w-[85px]"
+            >
+              <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase">
+                {item.day}
+              </span>
+              <span className="text-sm font-black text-gray-950 dark:text-white my-0.5">
+                {item.temp}
+              </span>
+              <span className="text-[10px] text-gray-500 dark:text-gray-400 truncate max-w-full">
+                {item.condition}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
